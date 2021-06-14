@@ -1,0 +1,14 @@
+a {
+    background-color:yellow;
+  }
+
+  table,
+td {
+    border: 1px solid #333;
+}
+
+thead,
+tfoot {
+    background-color: rgb(189, 52, 52);
+    color: #fff;
+}
