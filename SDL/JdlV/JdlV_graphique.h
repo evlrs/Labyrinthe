@@ -5,4 +5,6 @@
 #include <stdlib.h>
 #include <SDL2/SDL.h>
 
+void initGrille(SDL_Window *win, SDL_Renderer *renderer);
+
 #endif

@@ -3,7 +3,7 @@
 
 
 
-void initGrille(SDL_Window *win, SDL_Renderer *rendere){
+void initGrille(SDL_Window *win, SDL_Renderer *renderer){
     
     SDL_Rect rect;
     /* couleur de fond */
@@ -20,5 +20,5 @@ void initGrille(SDL_Window *win, SDL_Renderer *rendere){
     SDL_Delay(500);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(win);
-}
+
 }

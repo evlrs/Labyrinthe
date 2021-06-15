@@ -1,4 +1,5 @@
 #include "JdlV_text.h"
+#include "JdlV_graphique.h"
 
 int main(){
 
