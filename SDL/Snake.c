@@ -49,13 +49,15 @@ void draw (int X, int Y)
     SDL_Rect rect;
     SDL_Rect in_rect;
 
-    int R,V, B;
-    int color=0;
+    int direction = 0;
+    int nb_iter = 200;
+
+    int R,V,B;  int color=0;
     int w=TAILLE_W;
     int h=TAILLE_H;
     srand(time(NULL));
 
-    for (size_t i = 0; i < 100; i++)
+    for (int i = 0; i < nb_iter; i++)
     {
         color = rand()%COULEUR;
         switch (color)
@@ -104,32 +106,51 @@ void draw (int X, int Y)
         in_rect.x = X+1;
         in_rect.y = Y+1;
         in_rect.w = w-2;
-         in_rect.h = h-2;
+        in_rect.h = h-2;
         SDL_RenderFillRect(renderer, &in_rect );
         /* afficher à l'ecran */
         SDL_RenderPresent(renderer);
         SDL_Delay(100);
         SDL_RenderClear(renderer);
+        
+        if(1==rand()%3)
+            direction = rand()%4;
 
-
-        if ((X<= LARGEUR-100))
-        {
-            w=TAILLE_W;
-            h=TAILLE_H;
-            X=X+15;
-        }
-        else if ((Y<= LONGEUR-100))
-        {
-            w=TAILLE_H;
-            h=TAILLE_W;
-            Y=Y+15;
-        }
-        else
-        {
-            w=TAILLE_W;
-            h=TAILLE_H;
-            X=X-15;
-        }
+        switch (direction)
+            {
+            case 0 :
+                if (X<= LARGEUR-100)
+                {
+                    w=TAILLE_W;
+                    h=TAILLE_H;
+                    X=X+15;
+                }
+                break;
+            case 1 :
+               if (Y<= LONGEUR-100)
+                {
+                    w=TAILLE_H;
+                    h=TAILLE_W;
+                    Y=Y+15;
+                }
+                break;
+            case 2 :
+                if(X <= 0)
+                {
+                    w=TAILLE_W;
+                    h=TAILLE_H;
+                    X=X-15;
+                }
+                break;
+            case 3 :
+                if (Y <= 0)
+                {
+                    w=TAILLE_H;
+                    h=TAILLE_W;
+                    Y=Y-15;
+                }
+                break;
+            }
         
     }
 
@@ -141,7 +162,7 @@ int main ()
 
     draw(10,10);
 
-    SDL_Delay(5000);
+    SDL_Delay(500);
 
     SDL_DestroyRenderer(renderer);
 
