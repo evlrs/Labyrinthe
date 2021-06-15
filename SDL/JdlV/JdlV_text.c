@@ -1,44 +1,5 @@
-#include <stdio.h>
-#include "JdlV.h"
+#include "JdlV_text.h"
 
-#define LONGUEUR 12
-#define LARGEUR 8
-
-void initTableau(int tab[LARGEUR][LONGUEUR]);                
-void afficheTableau(int tab[LARGEUR][LONGUEUR]);             
-void copieTableau(int tab1[LARGEUR][LONGUEUR], int tab2[LARGEUR][LONGUEUR]);
-int voisinsVivants(int tab[LARGEUR][LONGUEUR],int i, int j); 
-int etatCellule(int tab[LARGEUR][LONGUEUR], int i, int j);
-int etatFuturCellule(int tab[LARGEUR][LONGUEUR], int i, int j);
-
-int main(){
-
-    int grille1[LARGEUR][LONGUEUR];
-    int grille2[LARGEUR][LONGUEUR];
-    int i,j,k;
-
-    initTableau(grille1);
-    initTableau(grille2);
-
-    /* initialisation planeur */
-    grille1[1][0]=1;
-    grille1[2][1]=1;
-    grille1[2][2]=1;
-    grille1[1][2]=1;
-    grille1[0][2]=1;
-    afficheTableau(grille1);
-
-    for(k=0;k<10;++k){
-        for(i=0;i<LARGEUR;++i){
-            for(j=0;j<LONGUEUR;++j){
-                grille2[i][j]=etatFuturCellule(grille1,i,j);
-            }
-        }
-        afficheTableau(grille2);
-        copieTableau(grille1,grille2);
-    }
-    return 0;
-}
 
 /* remplie la matrice de 0*/
 void initTableau(int tab[LARGEUR][LONGUEUR]){
@@ -99,19 +60,15 @@ int etatCellule(int tab[LARGEUR][LONGUEUR], int i, int j){
 }
 /* retourne 1 si la cellule sera vivante et 0 si elle sera morte e l instant t+1*/
 int etatFuturCellule(int tab[LARGEUR][LONGUEUR], int i, int j){
-    int etatCell = etatCellule(tab,i,j);       // etat de la cellule  a l instant t
+    int vivante[]={0,0,1,1,0,0,0,0,0};          // vivante a l instant t
+    int morte[]={0,0,0,1,0,0,0,0,0};            // morte a l instant t
+    int etatCell = etatCellule(tab,i,j);        // etat de la cellule  a l instant t
     int etatFutur = etatCell;
-    int voisins = voisinsVivants(tab,i,j);  // voisins = nombres de voisins vivant
-    if(etatCell==0 && voisins==3){
-        etatFutur=1;
-    }
-    if(etatCell==1){
-        if(voisins==3 || voisins==2){
-            etatFutur=1;
-        }
-        else{
-            etatFutur=0;
-        }
+    int voisins = voisinsVivants(tab,i,j);      // voisins = nombres de voisins vivant
+    if(etatCell==0){
+        etatFutur=morte[voisins];
+    }else{
+        etatFutur=vivante[voisins];
     }
     return etatFutur;
 }
