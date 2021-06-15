@@ -22,3 +22,82 @@ Lundi matin :
   nico : SDL2: Fin du jeu de la vie graphique et début du travail sur les textures
   dodo : HTML : Evolution page web pour le projet
 
+Mercredi matin :
+  evan : 
+  nico : 
+  dodo : 
+ 
+ Mercredi A-midi:
+  evan : 
+  nico : 
+  dodo : 
+  
+  Jeudi matin :
+  evan : 
+  nico : 
+  dodo : 
+  
+ Jeudi A-midi:
+  evan :
+  nico :
+  dodo :
+  
+ Vendredi matin :
+  evan : 
+  nico : 
+  dodo : 
+ 
+ Vendredi A-midi:
+  evan : 
+  nico : 
+  dodo : 
+  
+  Lundi matin :
+  evan : 
+  nico : 
+  dodo : 
+  
+ Lundi A-midi:
+  evan :
+  nico :
+  dodo :
+  
+  Mardi matin :
+  evan : 
+  nico :
+  dodo :
+  
+ Mardi A-midi:
+  evan : 
+  nico : 
+  dodo : 
+
+Mercredi matin :
+  evan : 
+  nico : 
+  dodo : 
+ 
+ Mercredi A-midi:
+  evan : 
+  nico : 
+  dodo : 
+  
+  Jeudi matin :
+  evan : 
+  nico : 
+  dodo : 
+  
+ Jeudi A-midi:
+  evan :
+  nico :
+  dodo :
+  
+ Vendredi matin :
+  evan : 
+  nico : 
+  dodo : 
+ 
+ Vendredi A-midi:
+  evan : 
+  nico : 
+  dodo : 
