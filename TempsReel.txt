@@ -3,84 +3,85 @@
 
 
 Lundi matin :
-  evan : GIT : Creation et configuration du GitHub
   nico : SDL2: Travail sur les Fenetre, sdl_fenetre et sur le render, sdl_render et sdl_serpent
+  evan : GIT : Creation et configuration du GitHub
   dodo : SDL2: Travail sur les Fenetre, X_fenetre et HTML: Creation page web pour le projet
  
  Lundi A-midi:
-  evan : HTML : Evolution page web pour le projet
   nico : SDL2: Travail sur le render, sdl_serpent
+  evan : HTML : Evolution page web pour le projet
   dodo : HTML : Evolution page web pour le projet
   
   Mardi matin :
-  evan : SDL2: Travail sur les Fenetre, sdl_fenetre et sur le render, sdl_render et sdl_serpent
   nico : SDL2: Travail sur jeu de la vie textuel et début graphique
+  evan : SDL2: Travail sur les Fenetre, sdl_fenetre et sur le render, sdl_render et sdl_serpent
   dodo : SDL2: Travail sur les Fenetre, Snake et LifeGame
   
  Mardi A-midi:
-  evan : HTML : migration et Evolution page web pour le projet
   nico : SDL2: Fin du jeu de la vie graphique et début du travail sur les textures
+  evan : HTML : migration et Evolution page web pour le projet
   dodo : HTML : Evolution page web pour le projet
 
 Mercredi matin :
-  evan : 
   nico : 
+  evan : 
   dodo : 
  
  Mercredi A-midi:
-  evan : 
   nico : 
+  evan : 
   dodo : 
   
   Jeudi matin :
-  evan : 
   nico : 
+  evan : 
   dodo : 
   
  Jeudi A-midi:
-  evan :
-  nico :
-  dodo :
+  nico : 
+  evan : : GIT : Creation et configuration du GitHub
+  dodo : 
+  
   
  Vendredi matin :
-  evan : 
   nico : 
-  dodo : 
+  evan : 
+  dodo :  
  
  Vendredi A-midi:
-  evan : 
   nico : 
-  dodo : 
+  evan : 
+  dodo :  
   
   Lundi matin :
-  evan : 
   nico : 
+  evan : 
   dodo : 
   
  Lundi A-midi:
-  evan :
-  nico :
-  dodo :
-  
-  Mardi matin :
+  nico : 
   evan : 
-  nico :
-  dodo :
+  dodo : 
+  
+ Mardi matin :
+  nico : 
+  evan : 
+  dodo : 
   
  Mardi A-midi:
-  evan : 
   nico : 
+  evan : 
   dodo : 
-
+  
 Mercredi matin :
-  evan : 
   nico : 
+  evan : 
   dodo : 
  
  Mercredi A-midi:
-  evan : 
   nico : 
-  dodo : 
+  evan : 
+  dodo :  
   
   Jeudi matin :
   evan : 
