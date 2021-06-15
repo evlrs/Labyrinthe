@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define LONGUEUR 12
-#define LARGEUR 8
+#define LONGUEUR 150
+#define LARGEUR 90
 
 void initTableau(int tab[LARGEUR][LONGUEUR]);                
 void afficheTableau(int tab[LARGEUR][LONGUEUR]);             

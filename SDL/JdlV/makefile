@@ -1,7 +1,7 @@
-CC=gcc
-OPT= -c -g -Wall -Wextra
+CC=gcc 
+OPT= -c -g -lSDL2 -Wall -Wextra  
 JdlV_main : JdlV_main.o JdlV_text.o JdlV_graphique.o
-	$(CC) -o JdlV_main JdlV_main.o JdlV_text.o JdlV_graphique.o
+	$(CC) -o JdlV_main JdlV_main.o JdlV_text.o JdlV_graphique.o -lSDL2 
 JdlV_text.o : JdlV_text.c JdlV_text.h
 	$(CC) $(OPT) JdlV_text.c
 JdlV_graphique.o : JdlV_graphique.c JdlV_graphique.h
