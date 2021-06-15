@@ -14,11 +14,11 @@ Lundi matin :
   
   Mardi matin :
   evan : SDL2: Travail sur les Fenetre, sdl_fenetre et sur le render, sdl_render et sdl_serpent
-  nico : SDL2: Travail sur jeu de la vie 
+  nico : SDL2: Travail sur jeu de la vie textuel et début graphique
   dodo : SDL2: Travail sur les Fenetre, Snake et LifeGame
   
  Mardi A-midi:
   evan : HTML : migration et Evolution page web pour le projet
-  nico : SDL2: Travail sur les textures
+  nico : SDL2: Fin du jeu de la vie graphique et début du travail sur les textures
   dodo : HTML : Evolution page web pour le projet
 
