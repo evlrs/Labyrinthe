@@ -20,7 +20,6 @@ int main(int argc, char **argv) {
   for(i=0;i<9;++i){
     creaFenetre(window,200,200,i*100,i*100);
     SDL_Delay(100);
-    SDL_DestroyWindow(window);
   }
   for(i=0;i<9;++i){
     creaFenetre(window,200,200,800-i*100,i*100);
