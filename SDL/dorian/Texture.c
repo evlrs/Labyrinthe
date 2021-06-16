@@ -7,11 +7,15 @@
 #include <math.h>
 
 #define LARGEUR 1000
-#define HAUTEUR 600
+#define LONGEUR 500
+
+
+
 
 SDL_Window   *window =NULL;
 SDL_Renderer *renderer= NULL;
 
+SDL_Texture * Textur = NULL;
 
 int Init_Window()
 {
@@ -20,7 +24,7 @@ int Init_Window()
         fprintf(stderr,"Erreur d'initialisation de la SDL : %s \n",SDL_GetError());
         return EXIT_FAILURE;
     }
-    window = SDL_CreateWindow("SDL Programme 0.1", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, LARGEUR, HAUTEUR,SDL_WINDOW_RESIZABLE); 
+    window = SDL_CreateWindow("SDL Programme 0.1", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, LARGEUR, LONGEUR,SDL_WINDOW_RESIZABLE); 
         if (window == 0) 
         {
             fprintf(stderr,"Erreur d'initialisation de la SDL : %s\n", SDL_GetError()); 
@@ -40,28 +44,32 @@ int Init_Window()
     return(0);
 }
 
-void Init_Texture(SDL_Texture * Texture, char * img)
+void Init_Texture()
 {
     SDL_Surface * Image = NULL;
 
-    Image = IMG_Load(img);
+    Image = IMG_Load("./Image/fond_Cat.jpg");
     if (Image == 0) 
     {
         fprintf(stderr, "Erreur chargement image : %s\n", SDL_GetError());
         SDL_DestroyWindow(window);
         SDL_DestroyRenderer(renderer); 
     }
-    Texture = SDL_CreateTextureFromSurface(renderer,Image);
-    if (Image == 0) 
+
+    Textur = SDL_CreateTextureFromSurface(renderer,Image);
+    printf("%p\n",Textur);
+    if (Textur == 0) 
     {
         fprintf(stderr, "Erreur chargement texture : %s\n", SDL_GetError());
         SDL_DestroyWindow(window);
         SDL_DestroyRenderer(renderer); 
+
     }
+    
     SDL_FreeSurface(Image);
 }
 
-void Aff_textu_full(SDL_Texture * Texture)
+void Aff_textu_full()
 {
 
     SDL_Rect dest={0};
@@ -69,16 +77,78 @@ void Aff_textu_full(SDL_Texture * Texture)
     SDL_Rect source={0};
 
     SDL_GetWindowSize(window, &window_dim.w,&window_dim.h);                    
-    SDL_QueryTexture(Texture, NULL, NULL, &source.w, &source.h);       
+    SDL_QueryTexture(Textur, NULL, NULL, &source.w, &source.h);       
 
     dest = window_dim;              
   
-    SDL_RenderCopy(renderer, Texture,&source,&dest);
+    SDL_RenderCopy(renderer, Textur,&source,&dest);
 
 }
 
-void animation(SDL_Texture * Texture)
+void Aff_textu_zoom()
 {
+
+    SDL_Rect dest={0};
+    SDL_Rect window_dim={0};
+    SDL_Rect source={0};
+
+    SDL_GetWindowSize(window, &window_dim.w,&window_dim.h);                    
+    SDL_QueryTexture(Textur, NULL, NULL, &source.w, &source.h);       
+
+    dest = window_dim;    
+
+
+    float zoom = 0.5;                            
+     dest.w = source.w * zoom;         
+     dest.h = source.h * zoom;         
+     dest.x = (window_dim.w - dest.w) /2;     
+     dest.y = (window_dim.h - dest.h) / 2;
+          
+  
+    SDL_RenderCopy(renderer, Textur,&source,&dest);
+
+}
+
+void Aff_textu_anim()
+{
+
+    SDL_Rect dest={0};
+    SDL_Rect window_dim={0};
+    SDL_Rect source={0};
+
+    SDL_GetWindowSize(window, &window_dim.w,&window_dim.h);                    
+    SDL_QueryTexture(Textur, NULL, NULL, &source.w, &source.h);       
+
+    dest = window_dim;    
+
+
+    float zoom= 0.25;
+    int nb_it = 200;                        
+    dest.w = source.w * zoom;  
+    dest.h = source.h * zoom;         
+    dest.x =(window_dim.w - dest.w) / 2;  
+    float h = window_dim.h - dest.h;  
+
+    for (int i = 0; i < nb_it; ++i) {
+        dest.y =
+            h * (1 - exp(-5.0 * i / nb_it) / 2 *
+                        (1 + cos(10.0 * i / nb_it * 2 *
+                                M_PI)));            
+
+        SDL_RenderClear(renderer);                  
+
+        SDL_SetTextureAlphaMod(Textur,(1.0-1.0*i/nb_it)*255);      
+        SDL_RenderCopy(renderer, Textur, &source, &dest);   
+        SDL_RenderPresent(renderer);                 
+        SDL_Delay(30);                                
+    }                                                 
+    SDL_RenderClear(renderer);
+
+}
+
+void Aff_textu_anim2()
+{
+
     SDL_Rect dest={0};
     SDL_Rect window_dim={0};
     SDL_Rect source={0};
@@ -86,7 +156,7 @@ void animation(SDL_Texture * Texture)
 
 
     SDL_GetWindowSize(window, &window_dim.w,&window_dim.h);                    
-    SDL_QueryTexture(Texture, NULL, NULL, &source.w, &source.h);       
+    SDL_QueryTexture(Textur, NULL, NULL, &source.w, &source.h);       
 
     dest = window_dim; 
     int nb_images = 5;                     
@@ -110,45 +180,36 @@ void animation(SDL_Texture * Texture)
 
        for (int x = 0; x < window_dim.w - dest.w; x += speed) 
        {
-        dest.x = x;
          etat.x += offset_x;                 // On passe à la vignette suivante dans l'image
          etat.x %= source.w;                 // La vignette qui suit celle de fin de ligne est
                                               // celle de début de ligne
 
          SDL_RenderClear(renderer);           // Effacer l'image précédente avant de dessiner la nouvelle
-         SDL_RenderCopy(renderer, Texture, // Préparation de l'affichage
+         SDL_RenderCopy(renderer, Textur, // Préparation de l'affichage
                         &etat,
                         &dest);  
          SDL_RenderPresent(renderer);         // Affichage
          SDL_Delay(80);                       // Pause en ms
        }
        SDL_RenderClear(renderer);             // Effacer la fenêtre avant de rendre la main
-}         
+     }
 
 int main ()
 {
-    SDL_Texture * CAT = NULL;
-    SDL_Texture * Fond = NULL;
-
     Init_Window();
 
-    Init_Texture(Fond,"./Image/fond_Cat.jpg");
-
-    Aff_textu_full(Fond);
-
-    Init_Texture(CAT,"./Image/CAT.png");
-    animation(CAT);
+    Init_Texture();
+    
+    Aff_textu_full();
 
     SDL_RenderPresent(renderer);
     SDL_Delay(5);
 
-    SDL_Delay(50);
+    SDL_Delay(5000);
 
     SDL_DestroyRenderer(renderer);
 
-    SDL_DestroyTexture(CAT);
-    SDL_DestroyTexture(Fond);
-
+    SDL_DestroyTexture(Textur);
 
     SDL_DestroyWindow(window);
 
