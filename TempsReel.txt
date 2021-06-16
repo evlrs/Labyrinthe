@@ -25,7 +25,7 @@ Lundi matin :
 Mercredi matin :
   nico : 
   evan : 
-  dodo : 
+  dodo : SDL2 : travaille sur les textures: Texture, Nyancat
  
  Mercredi A-midi:
   nico : 
@@ -39,7 +39,7 @@ Mercredi matin :
   
  Jeudi A-midi:
   nico : 
-  evan : : GIT : Creation et configuration du GitHub
+  evan :
   dodo : 
   
   
