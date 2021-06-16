@@ -11,7 +11,7 @@
 
 SDL_Window   *window =NULL;
 SDL_Renderer *renderer= NULL;
-SDL_Texture * Texture = NULL;
+
 
 int Init_Window()
 {
@@ -40,11 +40,11 @@ int Init_Window()
     return(0);
 }
 
-void Init_Texture()
+void Init_Texture(SDL_Texture * Texture, char * img)
 {
     SDL_Surface * Image = NULL;
 
-    Image = IMG_Load("./Image/CAT.png");
+    Image = IMG_Load(img);
     if (Image == 0) 
     {
         fprintf(stderr, "Erreur chargement image : %s\n", SDL_GetError());
@@ -61,7 +61,23 @@ void Init_Texture()
     SDL_FreeSurface(Image);
 }
 
-void animation()
+void Aff_textu_full(SDL_Texture * Texture)
+{
+
+    SDL_Rect dest={0};
+    SDL_Rect window_dim={0};
+    SDL_Rect source={0};
+
+    SDL_GetWindowSize(window, &window_dim.w,&window_dim.h);                    
+    SDL_QueryTexture(Texture, NULL, NULL, &source.w, &source.h);       
+
+    dest = window_dim;              
+  
+    SDL_RenderCopy(renderer, Texture,&source,&dest);
+
+}
+
+void animation(SDL_Texture * Texture)
 {
     SDL_Rect dest={0};
     SDL_Rect window_dim={0};
@@ -94,6 +110,7 @@ void animation()
 
        for (int x = 0; x < window_dim.w - dest.w; x += speed) 
        {
+        dest.x = x;
          etat.x += offset_x;                 // On passe à la vignette suivante dans l'image
          etat.x %= source.w;                 // La vignette qui suit celle de fin de ligne est
                                               // celle de début de ligne
@@ -110,11 +127,17 @@ void animation()
 
 int main ()
 {
+    SDL_Texture * CAT = NULL;
+    SDL_Texture * Fond = NULL;
+
     Init_Window();
 
-    Init_Texture();
-    
-    animation();
+    Init_Texture(Fond,"./Image/fond_Cat.jpg");
+
+    Aff_textu_full(Fond);
+
+    Init_Texture(CAT,"./Image/CAT.png");
+    animation(CAT);
 
     SDL_RenderPresent(renderer);
     SDL_Delay(5);
@@ -123,7 +146,9 @@ int main ()
 
     SDL_DestroyRenderer(renderer);
 
-    SDL_DestroyTexture(Texture);
+    SDL_DestroyTexture(CAT);
+    SDL_DestroyTexture(Fond);
+
 
     SDL_DestroyWindow(window);
 
