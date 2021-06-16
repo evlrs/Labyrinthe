@@ -44,7 +44,7 @@ void Init_Texture()
 {
     SDL_Surface * Image = NULL;
 
-    Image = IMG_Load("./Image/player-spritemap-v9.png");
+    Image = IMG_Load("./Image/CAT.png");
     if (Image == 0) 
     {
         fprintf(stderr, "Erreur chargement image : %s\n", SDL_GetError());
@@ -68,8 +68,68 @@ void animation()
     SDL_Rect source={0};
     SDL_Rect etat={0};
 
+
     SDL_GetWindowSize(window, &window_dim.w,&window_dim.h);                    
     SDL_QueryTexture(Texture, NULL, NULL, &source.w, &source.h);       
 
-    dest = window_dim;
+    dest = window_dim; 
+    int nb_images = 5;                     
+    float zoom = 4;                        
+    int offset_x = source.w / nb_images,
+        offset_y = source.h;           
+
+        printf("%i\n",source.w);
+       etat.x = 0 ;                          
+       etat.y = 0;                
+       etat.w = offset_x;                    
+       etat.h = offset_y;                   
+
+       dest.w = offset_x * zoom;
+       dest.h = offset_y * zoom;    
+
+       dest.y =(window_dim.h - dest.h) /2;
+       dest.x =(window_dim.w - dest.w) /2;
+
+       int speed = 9;
+
+       for (int x = 0; x < window_dim.w - dest.w; x += speed) 
+       {
+         etat.x += offset_x;                 // On passe à la vignette suivante dans l'image
+         etat.x %= source.w;                 // La vignette qui suit celle de fin de ligne est
+                                              // celle de début de ligne
+
+         SDL_RenderClear(renderer);           // Effacer l'image précédente avant de dessiner la nouvelle
+         SDL_RenderCopy(renderer, Texture, // Préparation de l'affichage
+                        &etat,
+                        &dest);  
+         SDL_RenderPresent(renderer);         // Affichage
+         SDL_Delay(80);                       // Pause en ms
+       }
+       SDL_RenderClear(renderer);             // Effacer la fenêtre avant de rendre la main
+}         
+
+int main ()
+{
+    Init_Window();
+
+    Init_Texture();
+    
+    animation();
+
+    SDL_RenderPresent(renderer);
+    SDL_Delay(5);
+
+    SDL_Delay(50);
+
+    SDL_DestroyRenderer(renderer);
+
+    SDL_DestroyTexture(Texture);
+
+    SDL_DestroyWindow(window);
+
+    IMG_Quit();
+
+    SDL_Quit();
+
+    return(0);
 }

@@ -48,7 +48,7 @@ void Init_Texture()
 {
     SDL_Surface * Image = NULL;
 
-    Image = IMG_Load("./Image/cat.png");
+    Image = IMG_Load("./Image/CAT.png");
     if (Image == 0) 
     {
         fprintf(stderr, "Erreur chargement image : %s\n", SDL_GetError());
@@ -163,7 +163,7 @@ void Aff_textu_anim2()
     int offset_x = source.w / nb_images,
         offset_y = source.h;           
 
-
+        printf("%i\n",source.w);
        etat.x = 0 ;                          
        etat.y = 0;                
        etat.w = offset_x;                    
