@@ -32,7 +32,6 @@ void play_with_texture_1(SDL_Texture *my_texture, SDL_Window *window,
   SDL_RenderClear(renderer);                    // Effacer la fenêtre
 }
 
-
 void play_with_texture_2(SDL_Texture* my_texture,
                             SDL_Window* window,
                             SDL_Renderer* renderer) {
@@ -157,7 +156,6 @@ void play_with_texture_4(SDL_Texture* my_texture,
     SDL_RenderClear(renderer);             // Effacer la fenêtre avant de rendre la main
 }
 
-
 void play_with_texture_5(SDL_Texture *bg_texture,
                            SDL_Texture *my_texture,
                            SDL_Window *window,
@@ -194,13 +192,13 @@ void play_with_texture_5(SDL_Texture *bg_texture,
     state[14] = state[13];                      // state[14 à 16] la même image, le monstre ne bouge pas   
     state[15] = state[16];                         
     for(; i< nb_images ; ++i){                  // reprise du début de l'animation en sens inverse  
-    state[i] = state[39-i];
+        state[i] = state[39-i];
     }
 
     destination.w = offset_x * zoom;            // Largeur du sprite à l'écran
     destination.h = offset_y * zoom;            // Hauteur du sprite à l'écran
     destination.x = window_dimensions.w * 0.75; // Position en x pour l'affichage du sprite
-    destination.y = window_dimensions.h * 0.7;  // Position en y pour l'affichage du sprite
+    destination.y = window_dimensions.h * 0.;  // Position en y pour l'affichage du sprite
 
     i = 0;
     for (int cpt = 0; cpt < nb_images_animation ; ++cpt) {
@@ -210,7 +208,7 @@ void play_with_texture_5(SDL_Texture *bg_texture,
                     my_texture, &state[i], &destination);
     i = (i + 1) % nb_images;                  // Passage à l'image suivante, le modulo car l'animation est cyclique 
     SDL_RenderPresent(renderer);              // Affichage
-    SDL_Delay(40);                           // Pause en ms
+    SDL_Delay(10);                           // Pause en ms
     }
     SDL_RenderClear(renderer);                  // Effacer la fenêtre avant de rendre la main
 }
@@ -239,12 +237,15 @@ int main(){
     my_texture = IMG_LoadTexture(renderer,"./image/shadow-80x70.png");
     //if (my_texture == NULL) end_sdl(0, "Echec du chargement de l'image dans la texture", window, renderer);
 
-    bg_texture = IMG_LoadTexture(renderer,"./image/trou-noir.png");
+    bg_texture = IMG_LoadTexture(renderer,"./image/nasa-xFO2Xt33xgI-unsplash.jpg");
     //if (bg_texture == NULL) end_sdl(0, "Echec du chargement de l'image dans la texture", window, renderer);
 
 
     play_with_texture_5(bg_texture,my_texture,window,renderer);
     SDL_DestroyTexture(my_texture);
+    SDL_DestroyTexture(bg_texture);
+    SDL_DestroyWindow(window);
+    SDL_DestroyRenderer(renderer);
     IMG_Quit();                                // Si on charge une librairie SDL, il faut penser à la décharger   
     
 }
