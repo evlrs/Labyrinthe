@@ -2,103 +2,103 @@
 # Auteur : Evan Laurans, Dorian Ferreira, Nicolas Laval
 
 
-Lundi matin :
+Lundi 14 matin :
   nico : SDL2: Travail sur les Fenetre, sdl_fenetre et sur le render, sdl_render et sdl_serpent
   evan : GIT : Creation et configuration du GitHub
   dodo : SDL2: Travail sur les Fenetre, X_fenetre et HTML: Creation page web pour le projet
  
- Lundi A-midi:
+ Lundi 14 A-midi:
   nico : SDL2: Travail sur le render, sdl_serpent
   evan : HTML : Evolution page web pour le projet
   dodo : HTML : Evolution page web pour le projet
   
-  Mardi matin :
+  Mardi 15 matin :
   nico : SDL2: Travail sur jeu de la vie textuel et début graphique
   evan : SDL2: Travail sur les Fenetre, sdl_fenetre et sur le render, sdl_render et sdl_serpent
   dodo : SDL2: Travail sur les Fenetre, Snake et LifeGame
   
- Mardi A-midi:
+ Mardi 15 A-midi:
   nico : SDL2: Fin du jeu de la vie graphique et début du travail sur les textures
   evan : HTML : migration et Evolution page web pour le projet
   dodo : HTML : Evolution page web pour le projet
 
-Mercredi matin :
+Mercredi 16 matin :
   nico : 
   evan : 
   dodo : SDL2 : travaille sur les textures: Texture, Nyancat
  
- Mercredi A-midi:
+ Mercredi 17 A-midi:
   nico : 
   evan : 
   dodo : 
   
-  Jeudi matin :
+  Jeudi 18 matin :
   nico : 
   evan : 
   dodo : 
   
- Jeudi A-midi:
+ Jeudiv 18 A-midi:
   nico : 
   evan :
   dodo : 
   
   
- Vendredi matin :
+ Vendredi 19 matin :
   nico : 
   evan : 
   dodo :  
  
- Vendredi A-midi:
+ Vendredi 19 A-midi:
   nico : 
   evan : 
   dodo :  
   
-  Lundi matin :
+  Lundi 21 matin :
   nico : 
   evan : 
   dodo : 
   
- Lundi A-midi:
+ Lundi 21 A-midi:
   nico : 
   evan : 
   dodo : 
   
- Mardi matin :
+ Mardi 22 matin :
   nico : 
   evan : 
   dodo : 
   
- Mardi A-midi:
+ Mardi 22 A-midi:
   nico : 
   evan : 
   dodo : 
   
-Mercredi matin :
+Mercredi 22 matin :
   nico : 
   evan : 
   dodo : 
  
- Mercredi A-midi:
+ Mercredi 22 A-midi:
   nico : 
   evan : 
   dodo :  
   
-  Jeudi matin :
+  Jeudi 23 matin :
   nico : 
   evan : 
   dodo : 
   
- Jeudi A-midi:
+ Jeudi 23 A-midi:
   nico : 
   evan : 
   dodo : 
   
- Vendredi matin :
+ Vendredi 24 matin :
   nico : 
   evan : 
   dodo : 
  
- Vendredi A-midi:
+ Vendredi 24 A-midi:
   nico : 
   evan : 
   dodo : 
