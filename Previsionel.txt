@@ -35,12 +35,12 @@ Mercredi matin :
   Jeudi matin :
   nico : 
   evan : 
-  dodo : Structure tas binaire
+  dodo : SDL2: Premier chef d'oeuvre
   
  Jeudi A-midi:
   nico :
   evan :
-  dodo : structure partition
+  dodo : SDL2: Premier chef d'oeuvre
   
  Vendredi matin :
   nico : 
