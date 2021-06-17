@@ -6,7 +6,7 @@
 #include <SDL2/SDL_ttf.h>
 #include <math.h>
 
-#define LARGEUR 1000
+#define LARGEUR 1200
 #define HAUTEUR 600
 
 SDL_Window * window=NULL;
@@ -20,7 +20,7 @@ int Init_Window(char * titre)
         fprintf(stdin,"Erreur d'initialisation de la SDL : %s \n",SDL_GetError());
         return EXIT_FAILURE;
     }
-    window = SDL_CreateWindow(titre, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, LARGEUR, HAUTEUR,SDL_WINDOW_RESIZABLE); 
+    window = SDL_CreateWindow(titre, 0, 0, LARGEUR, HAUTEUR,SDL_WINDOW_RESIZABLE); 
         if (window == 0) 
         {
             fprintf(stdin,"Erreur d'initialisation de la SDL : %s\n", SDL_GetError()); 
@@ -84,15 +84,27 @@ void Aff_textu_full(SDL_Texture * Texture)
 
 }
 
+/*int Verif_col(SDL_Rect * play,SDL_Rect * obj)
+{
+    int col=0;
+
+    if()
+
+    
+    return col;
+}*/
+
 int main ()
 {
         
     SDL_Texture * CAT = NULL;
     SDL_Texture * Fond = NULL;
-    
+    SDL_Texture * Planet = NULL;
+
     Init_Window("Nyancat");
     Fond = Init_Texture("./Image/fond_Cat.jpg");
     CAT=Init_Texture("./Image/CAT.png");
+    Planet = Init_Texture("./Image/planet2.png");
     
     Aff_textu_full(Fond);
     SDL_RenderPresent(renderer);
@@ -101,34 +113,50 @@ int main ()
     
     int running = 1;
     SDL_Event event;
-
-    SDL_Rect dest={0};
     SDL_Rect window_dim={0};
-    SDL_Rect source={0};
-    SDL_Rect etat={0};
+    
+    
+    SDL_Rect dest_cat={0};
+    SDL_Rect source_cat={0};
+    SDL_Rect etat_cat={0};
+    
+    SDL_Rect dest_plan={0};
+    SDL_Rect source_plan={0};
 
+    srand(time(NULL));
 
     SDL_GetWindowSize(window, &window_dim.w,&window_dim.h);                    
-    SDL_QueryTexture(CAT, NULL, NULL, &source.w, &source.h);       
+    SDL_QueryTexture(CAT, NULL, NULL, &source_cat.w, &source_cat.h);
+    SDL_QueryTexture(Planet,NULL, NULL, &source_plan.w, &source_plan.h);      
 
-    dest = window_dim; 
-    int nb_images = 5;                     
-    float zoom = 4;                        
-    int offset_x = source.w / nb_images,
-        offset_y = source.h;           
+    dest_cat = window_dim;
 
-       etat.x = 0 ;                          
-       etat.y = 0 ;                
-       etat.w = offset_x;                    
-       etat.h = offset_y;                   
+    int vit_plan=10;
+    int vit_cat=15;
+    int nb_images_cat = 5;                     
+    float zoom_cat = 4; 
+    float zoom_plan= 0.15;                       
+    int offset_x = source_cat.w / nb_images_cat,
+        offset_y = source_cat.h;           
 
-       dest.w = offset_x * zoom;
-       dest.h = offset_y * zoom;    
+       etat_cat.x = 0 ;                          
+       etat_cat.y = 0 ;                
+       etat_cat.w = offset_x;                    
+       etat_cat.h = offset_y;                   
 
-       dest.y =(window_dim.h - dest.h) /2;
+       dest_cat.w = offset_x * zoom_cat;
+       dest_cat.h = offset_y * zoom_cat;    
 
-       dest.x = 0;
+       dest_cat.y = (window_dim.h - dest_cat.h) /2;
+       dest_cat.x = 0;
 
+       source_plan.x=0;
+       source_plan.y=0;
+      
+       dest_plan.w = source_plan.w*zoom_plan;
+       dest_plan.h = source_plan.w*zoom_plan;
+       dest_plan.x= window_dim.w-dest_plan.w/2;
+       dest_plan.y = 50+(rand()%((window_dim.h - dest_plan.h-50)));
 
 
     while (running) 
@@ -166,10 +194,16 @@ int main ()
                     switch (event.key.keysym.sym)
                     {
                     case SDLK_UP:
-                        dest.y -= dest.h/2;
+                        dest_cat.y -= 50;
+                        dest_cat.y -= dest_cat.h/vit_cat-window_dim.h+50;
+                        dest_cat.y %= window_dim.h-50;
+                        dest_cat.y += 50;
                         break;
                     case SDLK_DOWN:
-                        dest.y += dest.h/2;
+                        dest_cat.y -= 50;
+                        dest_cat.y += dest_cat.h/vit_cat;
+                        dest_cat.y %= window_dim.h-50;
+                        dest_cat.y += 50;
                         break;
                     default:
                         break;
@@ -178,17 +212,29 @@ int main ()
             }
         }
 
+         etat_cat.x += offset_x;
+         etat_cat.x %= source_cat.w;   
 
-         etat.x += offset_x;                 
-         etat.x %= source.w;                 
-                                             
+        if (dest_plan.x <= -dest_plan.w)
+        {
+            dest_plan.x= window_dim.w-dest_plan.w;
+            dest_plan.y = rand()%((window_dim.h - dest_plan.h));
+            //vit_plan -= 0.1;
+        }
+        else
+        {
+            dest_plan.x -= dest_plan.w/vit_plan;
+        }
 
          SDL_RenderClear(renderer);           
          Aff_textu_full(Fond);
-         SDL_RenderCopy(renderer, CAT, &etat,&dest); 
+         SDL_RenderCopy(renderer, CAT, &etat_cat,&dest_cat); 
+         SDL_RenderCopy(renderer, Planet, &source_plan,&dest_plan);
          SDL_RenderPresent(renderer);         
-        SDL_Delay(80);
+         SDL_Delay(80);
 
+         int coli=SDL_HasIntersection(&dest_cat,&dest_plan);
+    
 
     }
 
