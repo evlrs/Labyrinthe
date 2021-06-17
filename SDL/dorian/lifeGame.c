@@ -6,14 +6,16 @@
 #include <SDL2/SDL_ttf.h>
 
 #define LARGEUR 400
-#define LONGEUR 400
-#define TAILLE 20
+#define HAUTEUR 400
+#define LIGNE 10
+#define COLONE 15
+
 
 
 SDL_Window   *window;
 SDL_Renderer *renderer;
 
-int Init_Window()
+int Init_Window(char * titre,int larg,int longr)
 {
 
     if (SDL_Init(SDL_INIT_EVERYTHING) == -1)
@@ -22,8 +24,8 @@ int Init_Window()
         return EXIT_FAILURE;
     }
 
-    window = SDL_CreateWindow("SDL Jeu de la vie", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 
-            LARGEUR, LONGEUR, 
+    window = SDL_CreateWindow(titre, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 
+            larg, longr, 
             SDL_WINDOW_RESIZABLE); 
     
     if (window == 0) 
@@ -44,7 +46,7 @@ int Init_Window()
     return(0);
 }
 
-void affichage(int color, int X, int Y, int taille)
+void affichage(int color, int X, int Y, int W,int H)
 {
     SDL_Rect rect;
     int R,V, B;
@@ -66,20 +68,21 @@ void affichage(int color, int X, int Y, int taille)
     SDL_SetRenderDrawColor(renderer, R, V, B, 0);
     rect.x = X;
     rect.y = Y;
-    rect.w = rect.h = taille;
+    rect.w = W;
+    rect.h = H;
     SDL_RenderFillRect(renderer, &rect );
      
 }
 
-void Init_Tab(int tab[TAILLE][TAILLE])
+void Init_Tab(int tab[LIGNE][COLONE])
 {
 	int j,i;
     srand(time(NULL));
 
-    for(j=0;j<TAILLE; ++j) 
+    for(i=0;i<LIGNE; ++i) 
 	{
-  		for(i=0; i<TAILLE; ++i)
-      		tab[j][i] = 0 ; 
+  		for(j=0; j<COLONE; ++j)
+      		tab[i][j] = 0 ; 
     }
     tab[1][0]=1;
     tab[1][2]=1;
@@ -88,16 +91,16 @@ void Init_Tab(int tab[TAILLE][TAILLE])
     tab[0][2]=1;
 }
 
-void affi_Tex(int tab[TAILLE][TAILLE])
+void affi_Tex(int tab[LIGNE][COLONE])
 {
 	int i,j;
 
     printf(" ------------------------------------");
     printf("\n"); 
-	for(i=0;i<TAILLE; ++i) 
+	for(i=0;i<LIGNE; ++i) 
 	{
         printf("|");
-  		for(j=0; j<TAILLE; ++j) 
+  		for(j=0; j<COLONE; ++j) 
         {    
            switch (tab[i][j])
            {
@@ -118,47 +121,49 @@ void affi_Tex(int tab[TAILLE][TAILLE])
     printf("\n"); 
 }
 
-void affi_Gra(int tab[TAILLE][TAILLE])
+void affi_Gra(int tab[LIGNE][COLONE],int W,int H)
 {
     int i,j;
+    SDL_RenderClear(renderer);
 
-    for(i=0;i<TAILLE; ++i) 
+    for(i=0;i<LIGNE; ++i) 
 	{
-  		for(j=0; j<TAILLE; ++j) 
+  		for(j=0; j<COLONE; ++j) 
         {
-            affichage(tab[i][j],j*20,i*20,20);
+            affichage(tab[i][j],j*(W/COLONE),i*(H/LIGNE),W/COLONE,H/LIGNE);
         }
     }
     /* afficher à l'ecran */
+
     SDL_RenderPresent(renderer);
-    SDL_Delay(1000);
+    SDL_Delay(1);
 }
 
-int Nb_voisin(int tab[TAILLE][TAILLE], int i, int j)
+int Nb_voisin(int tab[LIGNE][COLONE], int i, int j)
 {
     int nb=0;
-    nb=tab[(i-1 + TAILLE)%TAILLE][(j-1 + TAILLE)%TAILLE] 
-       + tab[(i-1 + TAILLE)%TAILLE][(j + TAILLE)%TAILLE] 
-       + tab[(i-1 + TAILLE)%TAILLE][(j+1 + TAILLE)%TAILLE] 
-                + tab[(i + TAILLE)%TAILLE][(j-1 + TAILLE)%TAILLE] 
-                + tab[(i + TAILLE)%TAILLE][(j+1 + TAILLE)%TAILLE] 
-                + tab[(i+1 + TAILLE)%TAILLE][(j-1 + TAILLE)%TAILLE] 
-                + tab[(i+1 + TAILLE)%TAILLE][(j + TAILLE)%TAILLE] 
-                + tab[(i+1 + TAILLE)%TAILLE][(j+1 + TAILLE)%TAILLE];
+    nb=tab[(i-1 + LIGNE)%LIGNE][(j-1 + COLONE)%COLONE] 
+       + tab[(i-1 + LIGNE)%LIGNE][(j + COLONE)%COLONE] 
+       + tab[(i-1 + LIGNE)%LIGNE][(j+1 + COLONE)%COLONE] 
+                + tab[(i + LIGNE)%LIGNE][(j-1 + COLONE)%COLONE] 
+                + tab[(i + LIGNE)%LIGNE][(j+1 + COLONE)%COLONE] 
+                + tab[(i+1 + LIGNE)%LIGNE][(j-1 + COLONE)%COLONE] 
+                + tab[(i+1 + LIGNE)%LIGNE][(j + COLONE)%COLONE] 
+                + tab[(i+1 + LIGNE)%LIGNE][(j+1 + COLONE)%COLONE];
     return nb;
 }
 
-void Grillsuiv(int tab[TAILLE][TAILLE])
+void Grillsuiv(int tab[LIGNE][COLONE])
 {
     int voisin=0;
     int vivant[9]={0,0,1,1,0,0,0,0,0};
     int mort[9]={0,0,0,1,0,0,0,0,0};
 
-    int Grille2 [TAILLE] [TAILLE];
+    int Grille2 [LIGNE] [COLONE];
 
-        for(int i=0; i<TAILLE; ++i) 
+        for(int i=0; i<LIGNE; ++i) 
 	    {
-  		    for(int j=0;j<TAILLE; ++j)
+  		    for(int j=0;j<COLONE; ++j)
             {
                 voisin=Nb_voisin(tab,i,j);
                 if(tab[i][j]==1)
@@ -172,9 +177,9 @@ void Grillsuiv(int tab[TAILLE][TAILLE])
             }
         }
 
-    for(int i=0; i<TAILLE; ++i) 
+    for(int i=0; i<LIGNE; ++i) 
 	    {
-  		    for(int j=0;j<TAILLE; ++j)
+  		    for(int j=0;j<COLONE; ++j)
             {  
                     tab[i][j]=Grille2[i][j];
             }
@@ -182,17 +187,38 @@ void Grillsuiv(int tab[TAILLE][TAILLE])
 
 } 
 
+int Coordonne(int val,int x,int w,int h)
+{
+    float coef=0;
+    int convert=0;
+    
+    if (x==1)
+    {
+        coef=w/COLONE;
+    }
+    else
+    {
+       coef=h/LIGNE; 
+    }
+    convert=val/coef;
+    return convert;
+}
 int main()
 {
-    Init_Window();
-    int Grille [TAILLE] [TAILLE];
+    Init_Window("Jeu de la Vie",LARGEUR,HAUTEUR);
+    int Grille [LIGNE] [COLONE];
     Init_Tab(Grille);
+
+    int larg = LARGEUR;
+    int haut = HAUTEUR;
 
 
     affi_Tex(Grille);
-    affi_Gra(Grille);
+    affi_Gra(Grille,larg,haut);
 
     int running = 1;
+    int pause = 0;
+    int cordX, cordY;
     SDL_Event event;
 
     while (running) 
@@ -201,6 +227,13 @@ int main()
         {
             switch(event.type)
             {
+                case SDL_QUIT : 
+                    //printf("on quitte\n");
+                       SDL_DestroyRenderer(renderer); 
+                       SDL_DestroyWindow(window);
+                    running = 0;
+                    break;
+
                 case SDL_WINDOWEVENT:
                     //printf("window event\n");
                     switch (event.window.event)  
@@ -208,25 +241,64 @@ int main()
                         case SDL_WINDOWEVENT_CLOSE:  
                             printf("appui sur la croix\n");	
                             break;
+
+                        case SDL_WINDOWEVENT_SIZE_CHANGED:
+                            larg = event.window.data1;
+                            haut = event.window.data2;
+                            affi_Gra(Grille,larg,haut);
+                            break;
                         default:
                             break;
                     }   
                     break;
-                case SDL_QUIT : 
-                    //printf("on quitte\n");
-                       SDL_DestroyRenderer(renderer); 
-                       SDL_DestroyWindow(window);
-                    running = 0;
+
+                case SDL_MOUSEBUTTONDOWN:
+                    switch (event.button.button)
+                    {
+                        
+                        case SDL_BUTTON_RIGHT:
+                        cordX = Coordonne(event.button.x,1,larg,haut);
+                        cordY = Coordonne(event.button.y,0,larg,haut);
+                        Grille [cordY] [cordX]=0;
+                        break;
+                        case SDL_BUTTON_LEFT:
+                        cordX = Coordonne(event.button.x,1,larg,haut);
+                        cordY = Coordonne(event.button.y,0,larg,haut);
+                        Grille [cordY] [cordX]=1;
+                        break;
+                        default:
+                        break;
+                        
+                    }
+                    printf("Appui :%d %d\n", event.button.x, event.button.y);
+                    printf("Appui :%d %d\n", cordX, cordY);
+				    break;
+
+                case SDL_KEYDOWN:
+                    switch (event.key.keysym.sym)
+                    {
+                    case SDLK_SPACE:
+                        pause=!(pause);
+                        break;
+                    case SDLK_p:
+                        running = 0;;
+                        break;
+                    default:
+                        break;
+                    }
+                break;
             }
-        }	
-	    SDL_Delay(1); //  delai minimal
+        }
 
-
-        Grillsuiv(Grille);
-        affi_Tex(Grille);
-        affi_Gra(Grille);
-
-
+        if(pause != 1)
+        {
+            Grillsuiv(Grille);
+        }
+        	    SDL_Delay(1); //  delai minimal
+        
+        //affi_Tex(Grille);
+        affi_Gra(Grille,larg,haut);
+        SDL_Delay(100);
     }
 
     SDL_DestroyRenderer(renderer);
