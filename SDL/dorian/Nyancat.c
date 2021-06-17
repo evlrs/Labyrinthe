@@ -61,7 +61,6 @@ SDL_Texture * Init_Texture( char * img)
     }
     SDL_FreeSurface(Image);
 
-
     return Texture;
 }
 
@@ -85,55 +84,6 @@ void Aff_textu_full(SDL_Texture * Texture)
 
 }
 
-void animation(SDL_Texture * anim,SDL_Texture * fond)
-{
-    SDL_Rect dest={0};
-    SDL_Rect window_dim={0};
-    SDL_Rect source={0};
-    SDL_Rect etat={0};
-
-
-    SDL_GetWindowSize(window, &window_dim.w,&window_dim.h);                    
-    SDL_QueryTexture(anim, NULL, NULL, &source.w, &source.h);       
-
-    dest = window_dim; 
-    int nb_images = 5;                     
-    float zoom = 4;                        
-    int offset_x = source.w / nb_images,
-        offset_y = source.h;           
-
-       etat.x = 0 ;                          
-       etat.y = 0;                
-       etat.w = offset_x;                    
-       etat.h = offset_y;                   
-
-       dest.w = offset_x * zoom;
-       dest.h = offset_y * zoom;    
-
-       dest.y =(window_dim.h - dest.h) /2;
-       dest.x = 0;
-
-       int speed = 1;
-
-       for (int x = 0; x < window_dim.w - dest.w; x += speed) 
-       {
-         dest.x = x*10;
-         dest.y = (window_dim.h - dest.h) /2 + 200*cos(x);
-         etat.x += offset_x;                 // On passe à la vignette suivante dans l'image
-         etat.x %= source.w;                 // La vignette qui suit celle de fin de ligne est
-                                              // celle de début de ligne
-
-         SDL_RenderClear(renderer);           // Effacer l'image précédente avant de dessiner la nouvelle
-         Aff_textu_full(fond);
-         SDL_RenderCopy(renderer, anim, // Préparation de l'affichage
-                        &etat,
-                        &dest);  
-         SDL_RenderPresent(renderer);         // Affichage
-         SDL_Delay(80);                       // Pause en ms
-       }
-       SDL_RenderClear(renderer);             // Effacer la fenêtre avant de rendre la main
-}  
-
 int main ()
 {
         
@@ -142,14 +92,124 @@ int main ()
     
     Init_Window("Nyancat");
     Fond = Init_Texture("./Image/fond_Cat.jpg");
+    CAT=Init_Texture("./Image/CAT.png");
+    
     Aff_textu_full(Fond);
     SDL_RenderPresent(renderer);
-    SDL_Delay(100);
+    SDL_Delay(10);
 
-    CAT=Init_Texture("./Image/CAT.png");
+    
+    int running = 1;
+    SDL_Event event;
+
+    SDL_Rect dest={0};
+    SDL_Rect window_dim={0};
+    SDL_Rect source={0};
+    SDL_Rect etat={0};
 
 
-    animation(CAT,Fond);
+    SDL_GetWindowSize(window, &window_dim.w,&window_dim.h);                    
+    SDL_QueryTexture(CAT, NULL, NULL, &source.w, &source.h);       
+
+    dest = window_dim; 
+    int nb_images = 5;                     
+    float zoom = 4;                        
+    int offset_x = source.w / nb_images,
+        offset_y = source.h;           
+
+       etat.x = 0 ;                          
+       etat.y = 0 ;                
+       etat.w = offset_x;                    
+       etat.h = offset_y;                   
+
+       dest.w = offset_x * zoom;
+       dest.h = offset_y * zoom;    
+
+       dest.y =(window_dim.h - dest.h) /2;
+
+       dest.x = 0;
+
+
+
+    while (running) 
+    {
+        while (SDL_PollEvent(&event))
+        {
+            switch(event.type)
+            {
+                case SDL_QUIT : 
+                    //printf("on quitte\n");
+                       SDL_DestroyRenderer(renderer); 
+                       SDL_DestroyWindow(window);
+                    running = 0;
+                    break;
+
+                case SDL_WINDOWEVENT:
+                    //printf("window event\n");
+                    switch (event.window.event)  
+                    {
+                        case SDL_WINDOWEVENT_CLOSE:  
+                            printf("appui sur la croix\n");	
+                            break;
+                        /*case SDL_WINDOWEVENT_SIZE_CHANGED:
+                            larg = event.window.data1;
+                            haut = event.window.data2;
+                            affi_Gra(Grille,larg,haut);
+                            break;*/
+                        default:
+                            break;
+                    }   
+                    break;
+
+
+                case SDL_KEYDOWN:
+                    switch (event.key.keysym.sym)
+                    {
+                    case SDLK_UP:
+                        dest.y -= dest.h/2;
+                        break;
+                    case SDLK_DOWN:
+                        dest.y += dest.h/2;
+                        break;
+                    default:
+                        break;
+                    }
+                break;
+            }
+        }
+
+
+         etat.x += offset_x;                 
+         etat.x %= source.w;                 
+                                             
+
+         SDL_RenderClear(renderer);           
+         Aff_textu_full(Fond);
+         SDL_RenderCopy(renderer, CAT, &etat,&dest); 
+         SDL_RenderPresent(renderer);         
+        SDL_Delay(80);
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //animation(CAT,Fond);
 
     //SDL_RenderPresent(renderer);
     //SDL_Delay(5);
