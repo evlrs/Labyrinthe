@@ -279,7 +279,6 @@ int main ()
 
         for(int k=0;k<(nscore_t);++k)
         {
-            printf("isok1\n");
             switch(k%7){
                 case(0):
                     color.r=240;
