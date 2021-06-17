@@ -72,7 +72,3 @@ int etatFuturCellule(int tab[LARGEUR][LONGUEUR], int i, int j){
     }
     return etatFutur;
 }
-
-void InOne(int tab[LARGEUR][LONGUEUR], int i, int j){
-    tab[i][j]=1;
-}

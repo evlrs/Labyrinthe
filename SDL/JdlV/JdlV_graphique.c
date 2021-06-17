@@ -10,9 +10,5 @@ void pixelNoir(SDL_Window *win, SDL_Renderer *renderer, int x, int y){
     rect.y = (y)*10;
     rect.w = rect.h = 10;
     SDL_RenderFillRect(renderer, &rect );
-
-    /* afficher à l'ecran */
-    //SDL_RenderPresent(renderer);
-    //SDL_Delay(500);
     
 }
