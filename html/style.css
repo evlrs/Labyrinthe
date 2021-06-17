@@ -1,17 +1,106 @@
 a {
-    background-color:yellow;
-  }
-
-  table,
-td {
-    border: 1px solid #333;
+    /*background-color:rgb(255, 255, 0);*/
 }
 
-thead,
-tfoot {
-    background-color: rgb(189, 52, 52);
-    color: #fff;
+petit
+{
+    font-size: 50%; /* Paragraphes de 14 pixels */
 }
+
+grand
+{
+    font-size: 120%; /* Titres de 40 pixels */
+}
+
+
+
+matin{
+    background-color: rgb(38, 141, 201)  
+}
+
+.apm{
+    background-color: rgb(48, 167, 77) 
+}
+.GIT
+{
+    background: lightslategray;
+    font:black;
+}
+.SDL2
+{
+    background: lightcoral;
+    font:black;
+}
+
+.html
+{
+    background: lightblue;
+    font:black;
+}
+
+.tas2
+{
+    background: lightgreen;
+    font:black;
+}
+
+.partition
+{
+    background: lightsalmon;
+    font:black;
+}
+
+.graphe
+{
+    background: lightslategray;
+    font:black;    
+}
+
+.extension
+{
+    background: lightgoldenrodyellow;
+    font:black;    
+}
+
+caption
+{
+    font-size: 3em;
+    margin: 1em;
+}
+
+table
+{
+    border-collapse: collapse;
+    border-style: solid;
+    border-width:medium;
+    border-color: black;
+    
+    text-align: center;
+
+    width:80%;
+    margin-right:auto;
+    margin-left:auto;
+    margin-bottom:5em;
+
+    background-color: lightsteelblue;
+}
+
+thead,tbody,tfoot,tr,td,th
+{
+    border-style: solid;
+    border-width:thin;
+    border-color: black;
+
+    padding: 0.5em 1em 0.5em 1em;
+}
+
+body
+{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    background-image: url("Images/FondPlanning.jpg");
+    background-size:cover;
+}
+
 
 .btnPopup{
     background-color: rgba(255, 255, 255, 0);
