@@ -93,6 +93,33 @@ void Aff_textu_full(SDL_Texture * Texture)
     
     return col;
 }*/
+//"./fonts/slkscr.ttf"
+
+TTF_Font* Init_Font(char * text) 
+{
+    if (TTF_Init() < 0)
+    {
+        fprintf(stdin, "Erreur d'initialisation de la TTF: %s\n", SDL_GetError());
+        SDL_DestroyWindow(window);
+        SDL_DestroyRenderer(renderer); 
+    } 
+
+    TTF_Font* font = NULL; 
+                                                  // la variable 'police de caractère'
+    font = TTF_OpenFont(text, 30);                     // La police à charger, la taille désirée
+    if (font == NULL) 
+    {
+        fprintf(stdin, "Erreur chargement font : %s\n", SDL_GetError());
+        SDL_DestroyWindow(window);
+        SDL_DestroyRenderer(renderer); 
+    }
+
+ 
+   TTF_SetFontStyle(font, TTF_STYLE_ITALIC | TTF_STYLE_BOLD);           // en italique, gras
+    return font;
+}
+
+
 
 int main ()
 {
@@ -100,15 +127,23 @@ int main ()
     SDL_Texture * CAT = NULL;
     SDL_Texture * Fond = NULL;
     SDL_Texture * Planet = NULL;
+    TTF_Font * Txt = NULL;
+    
 
     Init_Window("Nyancat");
     Fond = Init_Texture("./Image/fond_Cat.jpg");
     CAT=Init_Texture("./Image/CAT.png");
     Planet = Init_Texture("./Image/planet2.png");
-    
+
+    Txt= Init_Font("./fonts/slkscr.ttf");
+
     Aff_textu_full(Fond);
     SDL_RenderPresent(renderer);
     SDL_Delay(10);
+
+    char score[]="Le score est de : 00";
+    int nScore=strlen(score);
+    char lettre[]="i";
 
     
     int running = 1;
@@ -122,6 +157,9 @@ int main ()
     
     SDL_Rect dest_plan={0};
     SDL_Rect source_plan={0};
+
+    SDL_Rect pos = {0};                                        
+    SDL_Color color = {0,0,0,255};
 
     srand(time(NULL));
 
@@ -226,10 +264,89 @@ int main ()
             dest_plan.x -= dest_plan.w/vit_plan;
         }
 
+
+
+        pos.x=50;
+        for(int k=0;k<(nScore);++k)
+        {
+            
+            switch(k%7){
+                case(0):
+                    color.r=240;
+                    color.g=50;
+                    color.b=255; 
+                    break; 
+                case(1):
+                    color.r=50;
+                    color.g=90;
+                    color.b=255;
+                    break;
+                case(2):
+                    color.r=50;
+                    color.g=180;
+                    color.b=255;
+                    break;
+                case(3):
+                    color.r=50;
+                    color.g=255;
+                    color.b=50;
+                    break;
+                case(4):
+                    color.r=255;
+                    color.g=255;
+                    color.b=50;
+                    break;
+                case(5):
+                    color.r=255;
+                    color.g=200;
+                    color.b=50;
+                    break;
+                case(6):
+                    color.r=255;
+                    color.g=50;
+                    color.b=50;
+                    break;
+            }
+            
+            lettre[0]=score[k];
+            SDL_Surface* text_surface = NULL;                                     // la surface  (uniquement transitoire)
+            SDL_Texture* text_texture = NULL;                                    // la texture qui contient le texte
+            
+            text_surface = TTF_RenderText_Blended(Txt, lettre, color);               // création du texte dans la surface 
+            //if (text_surface == NULL) end_sdl(0, "Can't create text surface", window, renderer);
+
+            text_texture = SDL_CreateTextureFromSurface(renderer, text_surface); // transfert de la surface à la texture
+            //if (text_texture == NULL) end_sdl(0, "Can't create texture from surface", window, renderer);
+            SDL_QueryTexture(text_texture, NULL, NULL, &pos.w, &pos.h);          // récupération de la taille (w, h) du texte 
+            
+            SDL_RenderCopy(renderer, text_texture, NULL, &pos);
+            SDL_DestroyTexture(text_texture);                                    // On n'a plus besoin de la texture avec le texte
+            SDL_FreeSurface(text_surface);                                       // la texture ne sert plus à rien
+            pos.x+=pos.w;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
          SDL_RenderClear(renderer);           
          Aff_textu_full(Fond);
+
          SDL_RenderCopy(renderer, CAT, &etat_cat,&dest_cat); 
          SDL_RenderCopy(renderer, Planet, &source_plan,&dest_plan);
+         
          SDL_RenderPresent(renderer);         
          SDL_Delay(80);
 
@@ -268,8 +385,10 @@ int main ()
     SDL_DestroyTexture(Fond);
 
 
+
     SDL_DestroyWindow(window);
 
+    TTF_Quit();
     IMG_Quit();
 
     SDL_Quit();
