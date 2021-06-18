@@ -15,7 +15,7 @@ SDL_Renderer * renderer=NULL;
 
 int Init_Window(char * titre)
 {
-    if (SDL_Init(SDL_INIT_EVERYTHING) == -1)
+    if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
     {
         fprintf(stdin,"Erreur d'initialisation de la SDL : %s \n",SDL_GetError());
         return EXIT_FAILURE;
@@ -84,17 +84,6 @@ void Aff_textu_full(SDL_Texture * Texture)
 
 }
 
-/*int Verif_col(SDL_Rect * play,SDL_Rect * obj)
-{
-    int col=0;
-
-    if()
-
-    
-    return col;
-}*/
-//"./fonts/slkscr.ttf"
-
 TTF_Font* Init_Font(char * text) 
 {
     if (TTF_Init() < 0)
@@ -105,8 +94,8 @@ TTF_Font* Init_Font(char * text)
     } 
 
     TTF_Font* font = NULL; 
-                                                  // la variable 'police de caractère'
-    font = TTF_OpenFont(text, 30);                     // La police à charger, la taille désirée
+                                                 
+    font = TTF_OpenFont(text, 30);                     
     if (font == NULL) 
     {
         fprintf(stdin, "Erreur chargement font : %s\n", SDL_GetError());
@@ -114,12 +103,11 @@ TTF_Font* Init_Font(char * text)
         SDL_DestroyRenderer(renderer); 
     }
 
+    
  
-   TTF_SetFontStyle(font, TTF_STYLE_ITALIC | TTF_STYLE_BOLD);           // en italique, gras
+   TTF_SetFontStyle(font, TTF_STYLE_ITALIC | TTF_STYLE_BOLD);
     return font;
 }
-
-
 
 int main ()
 {
@@ -141,9 +129,10 @@ int main ()
     SDL_RenderPresent(renderer);
     SDL_Delay(10);
 
-    char score[]="Le score est de : 00";
-    int nScore=strlen(score);
+    char score_t[]="Le score est de : 00";
+    int nscore_t=strlen(score_t);
     char lettre[]="i";
+    int Score = 0;
 
     
     int running = 1;
@@ -162,6 +151,7 @@ int main ()
     SDL_Color color = {0,0,0,255};
 
     srand(time(NULL));
+    int coli=0;
 
     SDL_GetWindowSize(window, &window_dim.w,&window_dim.h);                    
     SDL_QueryTexture(CAT, NULL, NULL, &source_cat.w, &source_cat.h);
@@ -170,10 +160,10 @@ int main ()
     dest_cat = window_dim;
 
     int vit_plan=10;
-    int vit_cat=15;
+    int vit_cat=10;
     int nb_images_cat = 5;                     
     float zoom_cat = 4; 
-    float zoom_plan= 0.15;                       
+    float zoom_plan= 0.12;                       
     int offset_x = source_cat.w / nb_images_cat,
         offset_y = source_cat.h;           
 
@@ -205,8 +195,8 @@ int main ()
             {
                 case SDL_QUIT : 
                     //printf("on quitte\n");
-                       SDL_DestroyRenderer(renderer); 
-                       SDL_DestroyWindow(window);
+                       //SDL_DestroyRenderer(renderer); 
+                       //SDL_DestroyWindow(window);
                     running = 0;
                     break;
 
@@ -250,147 +240,172 @@ int main ()
             }
         }
 
-         etat_cat.x += offset_x;
-         etat_cat.x %= source_cat.w;   
 
-        if (dest_plan.x <= -dest_plan.w)
+        if(coli==0)
         {
-            dest_plan.x= window_dim.w-dest_plan.w;
-            dest_plan.y = rand()%((window_dim.h - dest_plan.h));
-            //vit_plan -= 0.1;
+            SDL_RenderClear(renderer);
+            Aff_textu_full(Fond);
+
+            pos.x=0;
+            for(int k=0;k<(nscore_t);++k)
+            {
+                switch(k%7){
+                    case(0):
+                        color.r=240;
+                        color.g=50;
+                        color.b=255; 
+                        break; 
+                    case(1):
+                        color.r=50;
+                        color.g=90;
+                        color.b=255;
+                        break;
+                    case(2):
+                        color.r=50;
+                        color.g=180;
+                        color.b=255;
+                        break;
+                    case(3):
+                        color.r=50;
+                        color.g=255;
+                        color.b=50;
+                        break;
+                    case(4):
+                        color.r=255;
+                        color.g=255;
+                        color.b=50;
+                        break;
+                    case(5):
+                        color.r=255;
+                        color.g=200;
+                        color.b=50;
+                        break;
+                    case(6):
+                        color.r=255;
+                        color.g=50;
+                        color.b=50;
+                        break;
+                }
+                
+                lettre[0]=score_t[k];
+                SDL_Surface* text_surface = NULL;                                    
+                SDL_Texture* text_texture = NULL;                              
+                
+                text_surface = TTF_RenderText_Blended(Txt, lettre, color);               
+                
+
+                text_texture = SDL_CreateTextureFromSurface(renderer, text_surface); 
+                SDL_FreeSurface(text_surface); 
+
+
+                SDL_QueryTexture(text_texture, NULL, NULL, &pos.w, &pos.h);          
+                
+                SDL_RenderCopy(renderer, text_texture, NULL, &pos);
+                SDL_DestroyTexture(text_texture);                                   
+                                                    
+                pos.x+=pos.w;
+            }
+
+            etat_cat.x += offset_x;
+            etat_cat.x %= source_cat.w;   
+
+            if (dest_plan.x <= -dest_plan.w)
+            {
+                dest_plan.x= window_dim.w-dest_plan.w;
+                dest_plan.y = rand()%((window_dim.h - dest_plan.h));
+                //vit_plan -= 0.1;
+                Score++;
+                score_t[nscore_t-2]=Score/10+'0';
+                score_t[nscore_t-1]=Score%10+'0';
+            }
+            else
+            {
+                dest_plan.x -= dest_plan.w/vit_plan;
+            }
+            
+            coli=SDL_HasIntersection(&dest_cat,&dest_plan);
+
+            SDL_RenderCopy(renderer, CAT, &etat_cat,&dest_cat); 
+            SDL_RenderCopy(renderer, Planet, &source_plan,&dest_plan);
         }
         else
         {
-            dest_plan.x -= dest_plan.w/vit_plan;
-        }
+            SDL_RenderClear(renderer);
+            Aff_textu_full(Fond);
 
+            pos.x=(window_dim.w-(nscore_t*pos.w))/2;
+            pos.y=(window_dim.h-pos.h)/2;
+            for(int k=0;k<(nscore_t);++k)
+            {
+                switch(k%7){
+                    case(0):
+                        color.r=240;
+                        color.g=50;
+                        color.b=255; 
+                        break; 
+                    case(1):
+                        color.r=50;
+                        color.g=90;
+                        color.b=255;
+                        break;
+                    case(2):
+                        color.r=50;
+                        color.g=180;
+                        color.b=255;
+                        break;
+                    case(3):
+                        color.r=50;
+                        color.g=255;
+                        color.b=50;
+                        break;
+                    case(4):
+                        color.r=255;
+                        color.g=255;
+                        color.b=50;
+                        break;
+                    case(5):
+                        color.r=255;
+                        color.g=200;
+                        color.b=50;
+                        break;
+                    case(6):
+                        color.r=255;
+                        color.g=50;
+                        color.b=50;
+                        break;
+                }
+                
+                lettre[0]=score_t[k];
+                SDL_Surface* text_surface = NULL;                                     
+                SDL_Texture* text_texture = NULL;                                    
+                
+                text_surface = TTF_RenderText_Blended(Txt, lettre, color);               
 
+                text_texture = SDL_CreateTextureFromSurface(renderer, text_surface); 
 
-        pos.x=50;
-        for(int k=0;k<(nScore);++k)
-        {
-            
-            switch(k%7){
-                case(0):
-                    color.r=240;
-                    color.g=50;
-                    color.b=255; 
-                    break; 
-                case(1):
-                    color.r=50;
-                    color.g=90;
-                    color.b=255;
-                    break;
-                case(2):
-                    color.r=50;
-                    color.g=180;
-                    color.b=255;
-                    break;
-                case(3):
-                    color.r=50;
-                    color.g=255;
-                    color.b=50;
-                    break;
-                case(4):
-                    color.r=255;
-                    color.g=255;
-                    color.b=50;
-                    break;
-                case(5):
-                    color.r=255;
-                    color.g=200;
-                    color.b=50;
-                    break;
-                case(6):
-                    color.r=255;
-                    color.g=50;
-                    color.b=50;
-                    break;
+                SDL_FreeSurface(text_surface); 
+
+                SDL_QueryTexture(text_texture, NULL, NULL, &pos.w, &pos.h);          
+                SDL_RenderCopy(renderer, text_texture, NULL, &pos);
+                SDL_DestroyTexture(text_texture);                                    
+                                                   
+                pos.x+=pos.w;
             }
-            
-            lettre[0]=score[k];
-            SDL_Surface* text_surface = NULL;                                     // la surface  (uniquement transitoire)
-            SDL_Texture* text_texture = NULL;                                    // la texture qui contient le texte
-            
-            text_surface = TTF_RenderText_Blended(Txt, lettre, color);               // création du texte dans la surface 
-            //if (text_surface == NULL) end_sdl(0, "Can't create text surface", window, renderer);
-
-            text_texture = SDL_CreateTextureFromSurface(renderer, text_surface); // transfert de la surface à la texture
-            //if (text_texture == NULL) end_sdl(0, "Can't create texture from surface", window, renderer);
-            SDL_QueryTexture(text_texture, NULL, NULL, &pos.w, &pos.h);          // récupération de la taille (w, h) du texte 
-            
-            SDL_RenderCopy(renderer, text_texture, NULL, &pos);
-            SDL_DestroyTexture(text_texture);                                    // On n'a plus besoin de la texture avec le texte
-            SDL_FreeSurface(text_surface);                                       // la texture ne sert plus à rien
-            pos.x+=pos.w;
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-         SDL_RenderClear(renderer);           
-         Aff_textu_full(Fond);
-
-         SDL_RenderCopy(renderer, CAT, &etat_cat,&dest_cat); 
-         SDL_RenderCopy(renderer, Planet, &source_plan,&dest_plan);
-         
-         SDL_RenderPresent(renderer);         
-         SDL_Delay(80);
-
-         int coli=SDL_HasIntersection(&dest_cat,&dest_plan);
-    
-
+        }    
+        SDL_RenderPresent(renderer);         
+        SDL_Delay(80);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //animation(CAT,Fond);
-
-    //SDL_RenderPresent(renderer);
-    //SDL_Delay(5);
-
-    //SDL_Delay(50);
-
-    SDL_DestroyRenderer(renderer);
+    TTF_CloseFont(Txt);
 
     SDL_DestroyTexture(CAT);
     SDL_DestroyTexture(Fond);
-
-
-
+    SDL_DestroyTexture(Planet);
+    SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
 
     TTF_Quit();
     IMG_Quit();
-
     SDL_Quit();
 
     return(0);
