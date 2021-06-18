@@ -18,24 +18,6 @@ matin{
     background-color: rgb(38, 141, 201)  
 }
 
-.t {
-    display: table;
-    width: 100%;
-    height: auto;
-}
-  
-ul {
-    display: table-row
-}
-  
-li {
-    display: table-cell
-}
-  
-iframe {
-    display: block;
-}
-
 .apm{
     background-color: rgb(48, 167, 77) 
 }
