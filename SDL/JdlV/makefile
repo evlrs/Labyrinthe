@@ -12,3 +12,6 @@ clear : rm
 	JdlV_main.o JdlV_text.o JdlV_graphique.o
 propr : clear
 	rm JdlV_main
+
+
+	

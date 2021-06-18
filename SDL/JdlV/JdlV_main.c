@@ -9,7 +9,7 @@ int main(){
 
     int grille1[LARGEUR][LONGUEUR];
     int grille2[LARGEUR][LONGUEUR];
-    int i,j;
+    //int i,j;
     int coord[2];
 
     initTableau(grille1);
@@ -42,56 +42,54 @@ int main(){
 
 
     SDL_bool program_on = SDL_TRUE,                          // Booléen pour dire que le programme doit continuer
-            paused = SDL_FALSE;                             // Booléen pour dire que le programme est en pause
-    while (program_on) {                              // La boucle des évènements
-        SDL_Event event;                                // Evènement à traiter
+            paused = SDL_FALSE;                              // Booléen pour dire que le programme est en pause
+    while (program_on) {                                     // La boucle des évènements
+        SDL_Event event;                                     // Evènement à traiter
 
-        while (program_on && SDL_PollEvent(&event)) {   // Tant que la file des évènements stockés n'est pas vide et qu'on n'a pas                                                     
+        while (program_on && SDL_PollEvent(&event)) {       // Tant que la file des évènements stockés n'est pas vide et qu'on n'a pas                                                     
                                                             // terminé le programme Défiler l'élément en tête de file dans 'event'
-            switch (event.type) {                         // En fonction de la valeur du type de cet évènement
-            case SDL_QUIT:                                // Un évènement simple, on a cliqué sur la x de la // fenêtre
+            switch (event.type) {                           // En fonction de la valeur du type de cet évènement
+            case SDL_QUIT:                                  // Un évènement simple, on a cliqué sur la x de la // fenêtre
                 program_on = SDL_FALSE;                     // Il est temps d'arrêter le programme
                 break;
 
-            case SDL_KEYDOWN:                             // Le type de event est : une touche appuyée
-                                                        // comme la valeur du type est SDL_Keydown, dans la pratie 'union' de
-                                                        // l'event, plusieurs champs deviennent pertinents   
+            case SDL_KEYDOWN:                               // Le type de event est : une touche appuyée
+                                                            // comme la valeur du type est SDL_Keydown, dans la pratie 'union' de
+                                                            // l'event, plusieurs champs deviennent pertinents   
                 switch (event.key.keysym.sym) {             // la touche appuyée est ...
                 case SDLK_p:                                // 'p'
                 case SDLK_SPACE:                            // 'SPC'
-                    paused = !paused;                         // basculement pause/unpause
+                    paused = !paused;                       // basculement pause/unpause
                     break;
                 case SDLK_ESCAPE:                           // 'ESCAPE'  
                 case SDLK_q:                                // 'q'
-                    program_on = SDL_FALSE;                           // 'escape' ou 'q', d'autres façons de quitter le programme                                     
+                    program_on = SDL_FALSE;                 // 'escape' ou 'q', d'autres façons de quitter le programme                                     
                     break;
                 case SDLK_RETURN:
-                    initForme(grille1);
+                    initForme(grille1);                     // Redemarrer le planneur 
                     break;
                 default:                                    // Une touche appuyée qu'on ne traite pas
                     break;
                 }
                 break;
             
-            case SDL_MOUSEBUTTONDOWN:                     // Click souris   
-                coord[0]=event.button.x/10;
-                coord[1]=event.button.y/10;
-                grille2[coord[1]][coord[0]]+=1%2;  //1->0 et 0->1
-                
+            case SDL_MOUSEBUTTONDOWN:                       // Click souris   
+                coord[0]=event.button.x/10;                 // Recupere la coordonnée en X du pixel où se trouve la souris
+                coord[1]=event.button.y/10;                 // Et en Y
+                grille2[coord[1]][coord[0]]+=1%2;           //1->0 et 0->1
                 jouer(win,renderer,grille1,grille2,0);
-
                 break;
-            default:                                      // Les évènements qu'on n'a pas envisagé
+            default:                                        // Les évènements qu'on n'a pas envisagé
                 break;
             }
 
         }
 
         
-        if (!paused) {                                  // Si on n'est pas en pause
-            jouer(win,renderer,grille1,grille2,1);             // la vie continue... 
+        if (!paused) {                                      // Si on n'est pas en pause
+            jouer(win,renderer,grille1,grille2,1);          // la vie continue... 
         }
-        SDL_Delay(50);                                  // Petite pause
+        SDL_Delay(50);                                      // Petite pause
     }
 
     return 0;

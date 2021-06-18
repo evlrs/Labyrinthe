@@ -42,9 +42,9 @@ void copieTableau(int tab1[LARGEUR][LONGUEUR], int tab2[LARGEUR][LONGUEUR]){
 }
 /* compte le nombre de voisins vivants */
 int voisinsVivants(int tab[LARGEUR][LONGUEUR], int i, int j){
-    int somme = tab[(i-1 + LARGEUR)%LARGEUR][(j-1 + LONGUEUR)%LONGUEUR] 
-                + tab[(i-1 + LARGEUR)%LARGEUR][(j + LONGUEUR)%LONGUEUR] 
-                + tab[(i-1 + LARGEUR)%LARGEUR][(j+1 + LONGUEUR)%LONGUEUR] 
+    int somme = tab[(i-1 + LARGEUR)%LARGEUR][(j-1 + LONGUEUR)%LONGUEUR]     // Valeur de la case au nord ouest
+                + tab[(i-1 + LARGEUR)%LARGEUR][(j + LONGUEUR)%LONGUEUR]     // Valeur de la case au nord 
+                + tab[(i-1 + LARGEUR)%LARGEUR][(j+1 + LONGUEUR)%LONGUEUR]   // ...
                 + tab[(i + LARGEUR)%LARGEUR][(j-1 + LONGUEUR)%LONGUEUR] 
                 + tab[(i + LARGEUR)%LARGEUR][(j+1 + LONGUEUR)%LONGUEUR] 
                 + tab[(i+1 + LARGEUR)%LARGEUR][(j-1 + LONGUEUR)%LONGUEUR] 
@@ -54,10 +54,6 @@ int voisinsVivants(int tab[LARGEUR][LONGUEUR], int i, int j){
     
     return somme;
 } 
-/* retourne 1 si la cellule est vivante et 0 si elle est morte */
-int etatCellule(int tab[LARGEUR][LONGUEUR], int i, int j){
-    return tab[i][j];
-}
 /* retourne 1 si la cellule sera vivante et 0 si elle sera morte e l instant t+1*/
 int etatFuturCellule(int tab[LARGEUR][LONGUEUR], int i, int j){
     int vivante[]={0,0,1,1,0,0,0,0,0};          // vivante a l instant t
@@ -66,9 +62,13 @@ int etatFuturCellule(int tab[LARGEUR][LONGUEUR], int i, int j){
     int etatFutur = etatCell;
     int voisins = voisinsVivants(tab,i,j);      // voisins = nombres de voisins vivant
     if(etatCell==0){
-        etatFutur=morte[voisins];
+        etatFutur=morte[voisins];               // etat de la cellule  a l instant t + 1
     }else{
-        etatFutur=vivante[voisins];
+        etatFutur=vivante[voisins];             // etat de la cellule  a l instant t + 1
     }
     return etatFutur;
+}
+/* retourne 1 si la cellule est vivante et 0 si elle est morte */
+int etatCellule(int tab[LARGEUR][LONGUEUR], int i, int j){
+    return tab[i][j];
 }
