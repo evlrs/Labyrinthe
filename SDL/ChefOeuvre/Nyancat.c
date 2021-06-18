@@ -94,8 +94,8 @@ TTF_Font* Init_Font(char * text)
     } 
 
     TTF_Font* font = NULL; 
-                                                  // la variable 'police de caractère'
-    font = TTF_OpenFont(text, 30);                     // La police à charger, la taille désirée
+                                                 
+    font = TTF_OpenFont(text, 30);                     
     if (font == NULL) 
     {
         fprintf(stdin, "Erreur chargement font : %s\n", SDL_GetError());
@@ -105,7 +105,7 @@ TTF_Font* Init_Font(char * text)
 
     
  
-   TTF_SetFontStyle(font, TTF_STYLE_ITALIC | TTF_STYLE_BOLD);           // en italique, gras
+   TTF_SetFontStyle(font, TTF_STYLE_ITALIC | TTF_STYLE_BOLD);
     return font;
 }
 
