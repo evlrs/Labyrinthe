@@ -39,8 +39,8 @@ int Init_Window(char * titre)
        
         /* couleur de fond */
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0);
-    SDL_RenderClear(renderer);
     SDL_RenderPresent(renderer);
+    SDL_RenderClear(renderer);
     SDL_Delay(5); 
         return(0);
 }
