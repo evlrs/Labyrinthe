@@ -14,7 +14,7 @@ int main(){
 
     initTableau(grille1);
     initTableau(grille2);
-
+    initForme(grille1);
 
     /* initialisation fenetre */
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -40,12 +40,15 @@ int main(){
         fprintf(stderr, "Erreur d'initialisation de la SDL : %s\n", SDL_GetError()); 
     }
 
-
+    int cpt=0;
     SDL_bool program_on = SDL_TRUE,                          // Booléen pour dire que le programme doit continuer
             paused = SDL_FALSE;                              // Booléen pour dire que le programme est en pause
     while (program_on) {                                     // La boucle des évènements
         SDL_Event event;                                     // Evènement à traiter
-
+        if(cpt%20==0){
+            //initForme(grille1); 
+        }
+        cpt++;
         while (program_on && SDL_PollEvent(&event)) {       // Tant que la file des évènements stockés n'est pas vide et qu'on n'a pas                                                     
                                                             // terminé le programme Défiler l'élément en tête de file dans 'event'
             switch (event.type) {                           // En fonction de la valeur du type de cet évènement
@@ -66,6 +69,7 @@ int main(){
                     program_on = SDL_FALSE;                 // 'escape' ou 'q', d'autres façons de quitter le programme                                     
                     break;
                 case SDLK_RETURN:
+                    initTableau(grille1);
                     initForme(grille1);                     // Redemarrer le planneur 
                     break;
                 default:                                    // Une touche appuyée qu'on ne traite pas
@@ -89,7 +93,7 @@ int main(){
         if (!paused) {                                      // Si on n'est pas en pause
             jouer(win,renderer,grille1,grille2,1);          // la vie continue... 
         }
-        SDL_Delay(50);                                      // Petite pause
+        SDL_Delay(100);                                      // Petite pause
     }
 
     return 0;
@@ -110,15 +114,15 @@ void jouer(SDL_Window *win, SDL_Renderer *renderer, int grille1[LARGEUR][LONGUEU
             }
         }
     }
-    
     SDL_RenderPresent(renderer);
-    SDL_Delay(100);
+    SDL_Delay(5);
     copieTableau(grille1,grille2);
+    
 }
 
 void initForme(int grille1[LARGEUR][LONGUEUR]){
     /* initialisation planeur */
-    initTableau(grille1);
+    //initTableau(grille1);
     
     grille1[1][0]=1;
     grille1[2][1]=1;
@@ -127,3 +131,6 @@ void initForme(int grille1[LARGEUR][LONGUEUR]){
     grille1[0][2]=1;
     
 }
+
+
+
