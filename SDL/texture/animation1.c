@@ -83,7 +83,7 @@ void play_with_texture(SDL_Texture* my_texture, SDL_Texture* bg_texture){
         play_with_texture_1(bg_texture); 
         SDL_RenderCopy(renderer, my_texture, // Préparation de l'affichage
                         &state[(i+6*nb_it)%6],
-                        &destination); 
+                        &destination);
         
         SDL_RenderPresent(renderer);         // Affichage
         SDL_Delay(30);                       // Pause en ms
