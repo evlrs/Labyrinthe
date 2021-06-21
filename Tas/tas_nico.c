@@ -27,8 +27,7 @@ int main(){
 
     creation2(tas,taille);
     afficherListe(tas,taille);
-    taille = ajouter(tas,taille,7);
-    taille = ajouter(tas,taille,6);
+    taille = ajouter(tas,taille,80);
     changerValeur(tas,3,21);
     taille = supprimer(tas,taille,5);
     afficherListe(tas,taille);
@@ -126,9 +125,10 @@ void verif_tas(int tas[],int taille){
 /* Supprime l'element à une position donnée    */
 /* Retourne la nouvelle taille                 */
 int supprimer(int tas[], int taille, int position){
-    for(int i=position;i<taille;++i){
+    /*for(int i=position;i<taille;++i){
         tas[i]=tas[i+1];
-    }
+    }*/
+    tas[position]=tas[taille-1];
     taille--;
     verif_tas(tas,taille);
     return taille;
@@ -142,10 +142,11 @@ void changerValeur(int tas[], int position, int valeur){
 /* Crée et afficher le graph */
 void graphviz(FILE * fic, int tas[], int taille){
     int g,d;
-    fic=fopen("graph_nico.txt","w");
+    fic=fopen("graph_nico.dot","w");
     if(fic!=NULL){
         
         fputs("graph {\n",fic);
+
         for(int i=0;i<taille;++i){
             g=gauche(i);
             d=droite(i);
@@ -158,7 +159,7 @@ void graphviz(FILE * fic, int tas[], int taille){
         }
         fputs("}\n",fic);
         fclose(fic);  
-        system("dot -Tjpg graph_nico.txt -o graph_nico.jpg");
+        system("dot -Tjpg graph_nico.dot -o graph_nico.jpg");
     }
 }
 

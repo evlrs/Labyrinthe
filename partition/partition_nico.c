@@ -33,21 +33,49 @@ void fusion(int liste[], int taille, int k, int j){
     }
 }
 
-/*
-void lister_classe(int liste[], int taille){
+/* Enumere les elements de la classe demandee */
+void lister_classe(int liste[], int taille, int classe){
+    int cpt=0;
     for(int i=0;i<taille;++i){
-
+        if(liste[i]==classe){
+            printf("%d ",i);
+            cpt++;
+        }
     }
-}*/
-
-void lister_partition(){
-
+    printf("\n");
+    if(cpt==0){
+        printf("Cette classe est vide !\n");
+    }
 }
 
+/* Enumere toutes les partitions en fonction de leur classe */
+void lister_partition(part *p0, int liste[], int taille){
+    init_partition(p0,taille);
+    for(int i=0;i<taille;++i){
+        elmt* val = (elmt*) malloc(sizeof(elmt));
+        val->pos=i;
+        val->suivant=p0->base[liste[i]];
+        p0->base[liste[i]]=val;
+    }
+    elmt* ptrCour=NULL;
+    for(int i=0;i<taille;++i){
+        ptrCour=p0->base[i];
+        printf("%d : ",i);
+        while(ptrCour!=NULL){
+            printf("%d ",ptrCour->pos);
+            ptrCour=ptrCour->suivant;
+        }
+        
+        printf("\n");
+    }
+}
+
+/* Initialisation de structure */
 void init_partition(part *p0, int taille){
     if(p0==NULL){
         printf("Erreur structure ...\n");
     }else{
-        p0->
+        p0->taille=taille;
+        p0->base = (elmt**) malloc(taille*sizeof(elmt*));
     }
 }

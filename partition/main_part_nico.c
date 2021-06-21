@@ -2,7 +2,7 @@
 
 
 int main(){
-    int taille=12;
+    int taille=8;
     int liste[taille];
     part *p0= (part*) malloc(sizeof(part));
 
@@ -12,6 +12,9 @@ int main(){
     afficherListe(liste,taille);
     fusion(liste,taille,2,7);
     afficherListe(liste,taille);
+    
+    lister_classe(liste,taille,2);
 
+    lister_partition(p0,liste,taille);
     return 0;
 }
