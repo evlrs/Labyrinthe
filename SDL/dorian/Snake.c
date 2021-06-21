@@ -156,10 +156,8 @@ void draw (int X, int Y)
                     Y=Y-15;
                 }
                 break;
-            }
-        
+            }      
     }
-
 }
 
 int main ()

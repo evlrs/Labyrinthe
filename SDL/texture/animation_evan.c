@@ -26,8 +26,8 @@ void play_with_texture_1(SDL_Texture *my_texture, SDL_Window *window,
   SDL_RenderCopy(renderer, my_texture,
                  &source,
                  &destination);                 // Création de l'élément à afficher
-  //SDL_RenderPresent(renderer);                  // Affichage
-  //SDL_Delay(60);                              // Pause en ms
+  SDL_RenderPresent(renderer);                  // Affichage
+  SDL_Delay(60);                              // Pause en ms
 
   //SDL_RenderClear(renderer);                    // Effacer la fenêtre
 }
@@ -236,8 +236,8 @@ void animation(SDL_Texture *bg_texture,
     SDL_QueryTexture(my_texture, NULL, NULL,    // Récupération des dimensions de l'image
                     &source.w, &source.h); 
 
-    int nb_images = 18;                         //  Il y a 15 vignette dans la ligne qui nous intéresse
-    int nb_images_animation = 2 * nb_images;    // 
+    int nb_images = 15;                         //  Il y a 15 vignette dans la ligne qui nous intéresse
+    int nb_images_animation = 1 * nb_images;    // 
     float zoom = 0;                             // zoom, car ces images sont un peu petites
     int offset_x = 140,                // La largeur d'une vignette de l'image
         offset_y = 190;                // La hauteur d'une vignette de l'image
@@ -256,7 +256,7 @@ void animation(SDL_Texture *bg_texture,
             
         }
     }
-    SDL_Delay(2);
+
 
     
     //destination.w = offset_x * zoom;            // Largeur du sprite à l'écran
@@ -281,7 +281,7 @@ void animation(SDL_Texture *bg_texture,
     }
     
 
-    int nb_images2 = 57;                         //  Il y a 28 vignette dans la ligne qui nous intéresse
+    int nb_images2 = 28;                         //  Il y a 28 vignette dans la ligne qui nous intéresse
     int nb_images_animation2 = 1 * nb_images;    // 
                                 // zoom, car ces images sont un peu petites
                    // La hauteur d'une vignette de l'image
@@ -308,7 +308,7 @@ void animation(SDL_Texture *bg_texture,
 
     j = 0;
     for (int cpt2 = 0; cpt2 < nb_images_animation2 ; ++cpt2) {
-        zoom=1+(sin(0.5*j))/3;
+        zoom=1+cos(0.5*j))/3;
         destination.w = offset_x * zoom;            // Largeur du sprite à l'écran
         destination.h = offset_y * zoom;            // Hauteur du sprite à l'écran
         destination.x = window_dimensions.w * 0.48; // Position en x pour l'affichage du sprite
