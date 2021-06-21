@@ -7,8 +7,8 @@
 
 #define LARGEUR 400
 #define HAUTEUR 400
-#define LIGNE 10
-#define COLONE 15
+#define LIGNE 20
+#define COLONE 35
 
 
 
