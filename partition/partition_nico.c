@@ -31,6 +31,7 @@ void fusion(int liste[], int taille, int k, int j){
     for(int i=0;i<taille;++i){
         if(liste[i]==val2) liste[i]=val1;
     }
+    
 }
 
 /* Enumere les elements de la classe demandee */
@@ -77,5 +78,25 @@ void init_partition(part *p0, int taille){
     }else{
         p0->taille=taille;
         p0->base = (elmt**) malloc(taille*sizeof(elmt*));
+    }
+}
+
+
+
+/* Crée et afficher le graph */
+void graphviz(FILE * fic, int tas[], int taille){
+    int g,d;
+    fic=fopen("graph_partition_nico.dot","w");
+    if(fic!=NULL){
+        
+        fputs("graph {\n",fic);
+
+        for(int i=0;i<taille;++i){
+            fprintf(fic,"    %d--%d;\n",tas[i],i);
+        }
+        fputs("}\n",fic);
+        fclose(fic);  
+        system("dot -Tjpg graph_partition_nico.dot -o graph_partition_nico.jpg");
+        system("sleep 1");
     }
 }
