@@ -14,27 +14,35 @@ void graphviz(FILE * fic, int tas[], int taille);
 void changerValeur(int tas[], int position, int valeur);
 int supprimer(int tas[], int taille, int position);
 void creation2(int tas[], int taille);
+void trieTas(int tas[], int liste[], int taille);
 
 int main(){
     int liste[]={15,5,8,2,13,4,3,11};
     int taille=sizeof(liste)/sizeof(liste[0]);
     int tas[taille];
-    FILE *fic = NULL;
+
+    //FILE *fic = NULL;
     /*
     for(int i=0;i<taille;++i){
         tas[i]=liste[i];
     }*/
-
+    
     creation2(tas,taille);
+    afficherListe(tas,taille);
+    /*
+    for(int i=0;i<taille;++i){
+        liste[i]=tas[i];
+    }*/
+    /*
     afficherListe(tas,taille);
     taille = ajouter(tas,taille,80);
     changerValeur(tas,3,21);
     taille = supprimer(tas,taille,5);
     afficherListe(tas,taille);
 
-    
     graphviz( fic, tas, taille);
-
+    */
+    trieTas(tas,liste,taille);
     return 0;
 }
 
@@ -174,3 +182,15 @@ void creation2(int tas[], int taille){
     }
 }
 
+/* Prend le tas et resort la liste triée */
+void trieTas(int tas[], int liste[], int taille){
+    int k=taille;
+    for(int i=0;i<taille;++i){
+        liste[i]=tas[0];
+        k=supprimer(tas,k,0);
+        afficherListe(tas,k);
+    }
+    afficherListe(liste,taille);
+    printf("\n");
+
+}
