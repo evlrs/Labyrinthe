@@ -3,6 +3,8 @@
 #include <string.h>
 #include <time.h>
 
+
+
 #define MTAILLE 30
 
 typedef struct Do_Tas
@@ -23,8 +25,6 @@ void Add_Noeud(STas * Tas, int X)
     Tas->tab[i]=X;
     Tas->taille++;
 }
-
-
 
 void Aug_Noeud(STas *Tas, int pos, int add)
 {
@@ -97,6 +97,28 @@ STas * Init_Tas(int val[],int nb)
 
 }
 
+void graphviz(FILE * file, STas * Tas){
+    int g,d;
+    file=fopen("graph_do.txt","w");
+    if(file!=NULL){
+        
+        fputs("graph {\n",file);
+        for(int i=0;i<Tas->taille;++i){
+            g=gauche(i);
+            d=droite(i);
+            if(g<=Tas->taille-1){
+                fprintf(file,"    %d--%d;\n",Tas->tab[i],Tas->tab[g]);
+            }
+            if(d<=Tas->taille-1){
+                fprintf(file,"    %d--%d;\n",Tas->tab[i],Tas->tab[d]);
+            }         
+        }
+        fputs("}\n",file);
+        fclose(file);  
+        system("dot -Tjpg graph_do.txt -o graph_do.jpg");
+    }
+}
+
 
 int main()
 {
@@ -104,14 +126,12 @@ int main()
 
     int list[]={0,4,4,7,9,5,4,8,10,11,12,7,6,5};
 
+    FILE * file=NULL;
 
     int nb = sizeof(list)/sizeof(int);
     Tas = Init_Tas(list,nb);
-    
 
     Aff_Ltas(Tas);
-
-
     Add_Noeud(Tas,3);
     //Add_Noeud(Tas,2);
     Aff_Ltas(Tas);
@@ -119,6 +139,9 @@ int main()
     Aug_Noeud(Tas,6,-2);
     Aff_Ltas(Tas);
     
+    graphviz(file,Tas);
+    
+
     free(Tas->tab);
     free(Tas);
 
