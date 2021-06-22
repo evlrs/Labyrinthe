@@ -41,10 +41,7 @@ void fusion(FILE* fic, int liste[], int taille, int k, int j){
             cptj++;
         }
     }
-    t=i;
-    while(t!=liste[t]){
-        t=liste[t];
-    }
+
     for(int i=0;i<taille;++i){
         if(liste[i]==valj){
             if(cptk==1){
