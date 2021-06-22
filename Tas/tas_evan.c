@@ -3,7 +3,7 @@
 #include <math.h>
 
 
-
+void initTas(int list[],int taille);
 void verifTas(int tas[], int taille);
 int parent(int indice);
 int droite(int indice);
@@ -11,18 +11,47 @@ int gauche(int indice);
 void inserTas(int tas[],int taille, int val);
 int supprTas(int tas[],int taille);
 
+void initTas(int list[],int taille){
+    int i=0;
+    int tas[taille];
+    /*for(int i=0;i<taille;++i){
+        tas[i]=0;
+    }*/
+    for(int i=0;i<taille;++i){
+        tas[i]
+        //inserTas(tas,taille,list[i]);
+    }
 
-int taille=9;
-
-/*void initTas(int list[taille]){
-    int tas[taille]={};
-    while tas[taille]!=
-}*/
+    
+}
 
 /* floor*/
 
+void verifTas(int tas[],int taille, int i){
+    int temp;
+    int em=i;
+    int g=gauche[i];
+    int d=droite[i];
+    if (g<(taille-1)&& tas[g]<tas[i]){
+        i=g;
+    }
+    if (d<(taille-1)&& tas[d]<tas[i]){
+        i=d;
+    }
+    if (em!=i){
+        temp=tas[i];
+        tas[i]=tas[em];
+        tas[em]=temp;
+        verifTas(tas,taille,em);
 
-void verifTas(int tas[], int taille){
+    }
+
+
+
+}
+
+
+void verifTas2(int tas[], int taille){
     int i=0;
     int temp;
     int petit;
@@ -34,12 +63,10 @@ void verifTas(int tas[], int taille){
         d=droite(i);
         petit=i;
         if (tas[i]>=tas[g] && gauche(i)<(taille-1)){
-            petit=g;
-            printf("a");           
+            petit=g;         
         }
         if (tas[petit]>tas[d] && droite(i)<(taille-1) ){
             petit=d;
-            printf("b");
         }
         if (petit!=i){
             temp=tas[i];
@@ -48,42 +75,6 @@ void verifTas(int tas[], int taille){
             i=petit;   // ici il y a l'implémentation
         }
     }
-        
-
-
-
-/*    while((tas[i]>tas[gauche(i)] || tas[i]>tas[droite(i)] && (arret!=0))){  
-        printf("a ");
-        if (gauche(i)>(taille-1)&&(droite(i)>(taille-1))){
-            printf("d");
-            arret=0;
-        }
-        if(tas[gauche(i)]<tas[i]){
-            printf("b ");
-
-            for(i=0;i<(taille+1);i++){
-            printf("%d ",tas[i]);
-            }
-            printf("\n ");
-            
-            temp=tas[gauche(i)];
-            tas[gauche(i)]=tas[i];
-            tas[i]=temp;
-            i=gauche(i);
-        }
-        if(tas[droite(i)]<tas[i]){
-            printf("c");
-
-            for(i=0;i<(taille+1);i++){
-            printf("%d ",tas[i]);
-            }
-            printf("\n ");
-            temp=tas[droite(i)];
-            tas[droite(i)]=tas[i];
-            tas[i]=temp;
-            i=droite(i);
-        }
-    }*/
 }
 
 
@@ -125,8 +116,8 @@ int supprTas(int tas[],int taille){
     int temp=tas[0];
     tas[0]=tas[taille-1];
     //tas[taille-1]=temp;
-    verifTas(tas,taille);
     taille=taille-1; 
+    verifTas(tas,taille);
     printf("La valeur supprimée est %d \n ",temp);
     return taille;
 
@@ -135,15 +126,22 @@ int supprTas(int tas[],int taille){
 
 
 
+
+
 int main(){
-    taille=9;
-    int liste[]={1,2,3,17,19,36,7,25,100};
-    int i=0;
+    int taille=9;
+    int i;
     int tas[taille];
+    //int liste[]={0,1,2,3,4,5,6,7,8,9};
+    //initTas(liste,taille);
+    int liste[]={1,2,3,17,19,36,7,25,100};
+    //int i=0;
+    //int tas[taille];
     for(int i=0;i<taille;++i){
         tas[i]=liste[i];
     }
     
+
 
     for(i=0;i<(taille);i++){
         printf("%d ",tas[i]);
