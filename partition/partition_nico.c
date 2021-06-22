@@ -25,28 +25,117 @@ int recuperer_classe(int liste[], int taille, int i){
 }
 
 /* Toute la classe de j entre dans la classe de k */
-void fusion(int liste[], int taille, int k, int j){
-    int val1=liste[k];
-    int val2=liste[j];
+void fusion(FILE* fic, int liste[], int taille, int k, int j){
+    int valk=liste[k];
+    int valj=liste[j];
+    int t;
+    //fprintf(fic,"    %d -> %d;\n",j,k);
+    int cptj=0;
+    int cptk=0;
+
     for(int i=0;i<taille;++i){
-        if(liste[i]==val2) liste[i]=val1;
+        if(liste[i]==valk){
+            cptk++;
+        }
+        if(liste[i]==valj){
+            cptj++;
+        }
     }
-    
+    t=i;
+    while(t!=liste[t]){
+        t=liste[t];
+    }
+    for(int i=0;i<taille;++i){
+        if(liste[i]==valj){
+            if(cptk==1){
+                if(cptj==1){
+                    liste[i]=valk;
+                    fprintf(fic,"    %d -> %d;\n",j,k);
+                }else{
+                    //
+                }
+            }else{
+                if(cptj==1){
+                    liste[i]=valk;
+                    fprintf(fic,"    %d -> %d;\n",j,k);
+                }else{
+                    t=i;
+                    while(t!=liste[t]){
+                        t=liste[t];
+                    }                
+                    fprintf(fic,"    %d -> %d;\n",t,valk);
+                    liste[t]=valk;
+                }
+            }
+        }
+        if(liste[i]==valk){
+            if(cptk==1){
+                if(cptj==1){
+                    liste[i]=valk;
+                    
+                }else{
+                    liste[i]=valj;
+                    fprintf(fic,"    %d -> %d;\n",k,valj);
+                }
+            }else{
+                if(cptj==1){
+                    //liste[i]=valk;
+                    //fprintf(fic,"    %d -> %d;\n",j,k);
+                }else{
+                    t=i;
+                    while(t!=liste[t]){
+                        t=liste[t];
+                    }                
+                    //fprintf(fic,"    %d -> %d;\n",valk,t);
+                    //liste[i]=valk;
+                }
+            }
+        }
+    }
+    //afficherListe(liste,taille);
+    /*
+    for(int i=0;i<taille;++i){
+        if(liste[i]==valk){
+            if(cptk==1){
+                if(cptj!=1){
+                    liste[i]=valj;
+                    fprintf(fic,"    %d -> %d;\n",k,valj);
+                }else{
+                    liste[i]=valk;
+                }
+            }else{
+                if(cptj==1){
+                    //liste[i]=valk;
+                    //fprintf(fic,"    %d -> %d;\n",j,k);
+                }else{
+                    t=i;
+                    while(t!=liste[t]){
+                        t=liste[t];
+                    }                
+                    //fprintf(fic,"    %d -> %d;\n",valk,t);
+                    //liste[i]=valk;
+                }
+            }
+        }
+    }*/
+    afficherListe(liste,taille);
+    printf("\n");
 }
 
 /* Enumere les elements de la classe demandee */
 void lister_classe(int liste[], int taille, int classe){
     int cpt=0;
+    printf("\nLa classe de %d est : ",classe);
     for(int i=0;i<taille;++i){
         if(liste[i]==classe){
             printf("%d ",i);
             cpt++;
         }
     }
-    printf("\n");
     if(cpt==0){
-        printf("Cette classe est vide !\n");
+        printf("vide !");
     }
+    printf("\n\n");
 }
 
 /* Enumere toutes les partitions en fonction de leur classe */
@@ -81,22 +170,28 @@ void init_partition(part *p0, int taille){
     }
 }
 
-
+/* Retourne le sous arbre le plus grand */
+void grandArbre(int liste[], int taille, int a, int b){
+    int i=0;
+    while(i){
+        
+    }
+}
 
 /* Crée et afficher le graph */
-void graphviz(FILE * fic, int tas[], int taille){
-    int g,d;
-    fic=fopen("graph_partition_nico.dot","w");
+void graphviz(FILE* fic, int liste[], int taille){
+    //fic=fopen("graph_partition_nico.dot","w");
     if(fic!=NULL){
         
-        fputs("graph {\n",fic);
+        //fputs("digraph {\n",fic);
 
         for(int i=0;i<taille;++i){
-            fprintf(fic,"    %d--%d;\n",tas[i],i);
+            if(i==liste[i])  fprintf(fic,"    %d -> %d;\n",i,i);
         }
+        /*
         fputs("}\n",fic);
         fclose(fic);  
         system("dot -Tjpg graph_partition_nico.dot -o graph_partition_nico.jpg");
-        system("sleep 1");
+        system("sleep 0.5");*/
     }
 }
