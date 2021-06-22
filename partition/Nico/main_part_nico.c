@@ -1,4 +1,5 @@
 #include "partition_nico.h"
+#include "graph_connex_nico.h"
 
 
 
@@ -14,7 +15,7 @@ int main(){
     creer(liste,taille);
     creer(racine,taille);
     initTabArbre(hauteur,taille);
-
+    /*
     fusion(liste,racine,hauteur,taille,0,1);
     fusion(liste,racine,hauteur,taille,2,3);
     fusion(liste,racine,hauteur,taille,10,3);
@@ -23,15 +24,17 @@ int main(){
     fusion(liste,racine,hauteur,taille,8,7);
     fusion(liste,racine,hauteur,taille,9,7);
     fusion(liste,racine,hauteur,taille,6,8);
-
+    */
     
-
     //lister_classe(liste,taille,1);
 
     //lister_partition(p0,liste,taille);
 
-    graphviz(fic,liste,taille);
+    //graphviz_partition(fic,liste,taille);
 
+    int mat[N][N];
+    creerMat(mat);
+    afficherMat(mat);
 
     return 0;
 }

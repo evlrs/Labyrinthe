@@ -127,7 +127,7 @@ int grandArbre(int liste[], int hauteur[], int a, int b){
 }
 
 /* Crée et afficher le graph */
-void graphviz(FILE* fic, int liste[], int taille){
+void graphviz_partition(FILE* fic, int liste[], int taille){
     fic=fopen("graph_partition_nico.dot","w");
     if(fic!=NULL){
         
