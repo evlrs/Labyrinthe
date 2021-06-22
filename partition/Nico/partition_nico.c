@@ -24,99 +24,31 @@ int recuperer_classe(int liste[], int taille, int i){
     return val;
 }
 
-/* Toute la classe de j entre dans la classe de k */
-void fusion(FILE* fic, int liste[], int taille, int k, int j){
-    int valk=liste[k];
-    int valj=liste[j];
-    int t;
-    //fprintf(fic,"    %d -> %d;\n",j,k);
-    int cptj=0;
-    int cptk=0;
+/* Fusionne pour faire des arbres */
+void fusion(int liste[], int racine[], int hauteur[], int taille, int k, int j){
 
-    for(int i=0;i<taille;++i){
-        if(liste[i]==valk){
-            cptk++;
-        }
-        if(liste[i]==valj){
-            cptj++;
-        }
-    }
+    int hk=haut(liste,hauteur,k);
+    int hj=haut(liste,hauteur,j);
+    int rk=racine[k];
+    int rj=racine[j];
 
-    for(int i=0;i<taille;++i){
-        if(liste[i]==valj){
-            if(cptk==1){
-                if(cptj==1){
-                    liste[i]=valk;
-                    fprintf(fic,"    %d -> %d;\n",j,k);
-                }else{
-                    //
-                }
-            }else{
-                if(cptj==1){
-                    liste[i]=valk;
-                    fprintf(fic,"    %d -> %d;\n",j,k);
-                }else{
-                    t=i;
-                    while(t!=liste[t]){
-                        t=liste[t];
-                    }                
-                    fprintf(fic,"    %d -> %d;\n",t,valk);
-                    liste[t]=valk;
-                }
-            }
-        }
-        if(liste[i]==valk){
-            if(cptk==1){
-                if(cptj==1){
-                    liste[i]=valk;
-                    
-                }else{
-                    liste[i]=valj;
-                    fprintf(fic,"    %d -> %d;\n",k,valj);
-                }
-            }else{
-                if(cptj==1){
-                    //liste[i]=valk;
-                    //fprintf(fic,"    %d -> %d;\n",j,k);
-                }else{
-                    t=i;
-                    while(t!=liste[t]){
-                        t=liste[t];
-                    }                
-                    //fprintf(fic,"    %d -> %d;\n",valk,t);
-                    //liste[i]=valk;
-                }
-            }
-        }
+    if(hk<hj){
+        liste[rk]=rj;
+        changRacine(racine,taille,racine[k],racine[j]);
+        hauteur[k]=0;   
     }
-    //afficherListe(liste,taille);
-    /*
-    for(int i=0;i<taille;++i){
-        if(liste[i]==valk){
-            if(cptk==1){
-                if(cptj!=1){
-                    liste[i]=valj;
-                    fprintf(fic,"    %d -> %d;\n",k,valj);
-                }else{
-                    liste[i]=valk;
-                }
-            }else{
-                if(cptj==1){
-                    //liste[i]=valk;
-                    //fprintf(fic,"    %d -> %d;\n",j,k);
-                }else{
-                    t=i;
-                    while(t!=liste[t]){
-                        t=liste[t];
-                    }                
-                    //fprintf(fic,"    %d -> %d;\n",valk,t);
-                    //liste[i]=valk;
-                }
-            }
-        }
-    }*/
-    afficherListe(liste,taille);
-    printf("\n");
+    if(hk>hj){
+        liste[racine[j]]=racine[k];
+        changRacine(racine,taille,racine[j],racine[k]);
+        hauteur[rj]=0;
+    }
+    if(hk==hj){
+        liste[racine[j]]=racine[k];
+        changRacine(racine,taille,racine[j],racine[k]);
+        hauteur[rj]=0;
+        hauteur[rk]++;        
+    }
+    
 }
 
 /* Enumere les elements de la classe demandee */
@@ -167,28 +99,54 @@ void init_partition(part *p0, int taille){
     }
 }
 
-/* Retourne le sous arbre le plus grand */
-void grandArbre(int liste[], int taille, int a, int b){
-    int i=0;
-    while(i){
-        
+/* Renvoie la mere de k */
+int mere(int liste[], int k){
+    return liste[k];
+}
+
+/* Init tableau grandeur arbre */
+void initTabArbre(int hauteur[], int taille){
+    for(int i=0;i<taille;++i){
+        hauteur[i]=1;
     }
+}
+
+/* Retourne la hauteur de l'arbre */
+int haut(int liste[], int hauteur[], int i){
+    while(liste[i]!=i)  i=liste[i];
+    return hauteur[i];
+}
+
+/* Retourne le sous arbre le plus grand */
+int grandArbre(int liste[], int hauteur[], int a, int b){
+    int ha = haut(liste,hauteur,a);
+    int hb = haut(liste,hauteur,b);
+    int h=a;
+    if(ha<hb)    h=b;
+    return h;
 }
 
 /* Crée et afficher le graph */
 void graphviz(FILE* fic, int liste[], int taille){
-    //fic=fopen("graph_partition_nico.dot","w");
+    fic=fopen("graph_partition_nico.dot","w");
     if(fic!=NULL){
         
-        //fputs("digraph {\n",fic);
+        fputs("digraph {\n",fic);
 
         for(int i=0;i<taille;++i){
-            if(i==liste[i])  fprintf(fic,"    %d -> %d;\n",i,i);
+            fprintf(fic,"    %d -> %d;\n",i,liste[i]);
         }
-        /*
+        
         fputs("}\n",fic);
         fclose(fic);  
         system("dot -Tjpg graph_partition_nico.dot -o graph_partition_nico.jpg");
-        system("sleep 0.5");*/
+        system("sleep 0.5");
+    }
+}
+
+/* Change la racine de l'arbre */
+void changRacine(int racine[], int taille, int ancienne, int nouvelle){
+    for(int i=0;i<taille;++i){
+        if(racine[i]==ancienne) racine[i]=nouvelle;
     }
 }
