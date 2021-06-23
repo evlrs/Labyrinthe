@@ -4,7 +4,7 @@
 
 
 int main(){
-    int taille=11;
+    int taille=N;
     int liste[taille];
     int hauteur[taille];
     int racine[taille];
@@ -23,18 +23,25 @@ int main(){
     fusion(liste,racine,hauteur,taille,4,6);
     fusion(liste,racine,hauteur,taille,8,7);
     fusion(liste,racine,hauteur,taille,9,7);
-    fusion(liste,racine,hauteur,taille,6,8);
-    */
+    fusion(liste,racine,hauteur,taille,6,7);
     
+    afficherListe(liste,taille);
+    afficherListe(racine,taille);
+    afficherListe(hauteur,taille);
+    */
     //lister_classe(liste,taille,1);
 
     //lister_partition(p0,liste,taille);
 
     //graphviz_partition(fic,liste,taille);
 
-    int mat[N][N];
-    creerMat(mat);
-    afficherMat(mat);
 
+    creerMat();
+    random1();
+    afficherMat();
+
+    graphviz_gconnex(fic);
+    calcul_composantes(liste);
+    afficherListe(liste,taille);
     return 0;
 }

@@ -31,7 +31,7 @@ void fusion(int liste[], int racine[], int hauteur[], int taille, int k, int j){
     int hj=haut(liste,hauteur,j);
     int rk=racine[k];
     int rj=racine[j];
-
+    printf("non\n");
     if(hk<hj){
         liste[rk]=rj;
         changRacine(racine,taille,racine[k],racine[j]);
@@ -48,7 +48,7 @@ void fusion(int liste[], int racine[], int hauteur[], int taille, int k, int j){
         hauteur[rj]=0;
         hauteur[rk]++;        
     }
-    
+    printf("oui\n");
 }
 
 /* Enumere les elements de la classe demandee */
@@ -69,6 +69,7 @@ void lister_classe(int liste[], int taille, int classe){
 
 /* Enumere toutes les partitions en fonction de leur classe */
 void lister_partition(part *p0, int liste[], int taille){
+    
     init_partition(p0,taille);
     for(int i=0;i<taille;++i){
         elmt* val = (elmt*) malloc(sizeof(elmt));
