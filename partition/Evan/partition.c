@@ -53,44 +53,24 @@ int recuperer_classe(int liste[], int taille, int i){
 }
 
 /* Toute la classe de j entre dans la classe de k */
+/* Retourne -1 si il sont dans la meme classe */
 int fusion(int liste[], int taille, int k, int j){
     int retour=0;
     int val1=liste[k];
     int val2=liste[j];
     if (val1!=val2){
-
         for(int i=0;i<taille;++i){
-            if(liste[i]==val2) liste[i]=val1;
+            if(liste[i]==val1) liste[i]=val2;
         }
         retour=val1;
     }
     else{
-        retour=0;
+        retour=-1;
     }
 
     return retour;
 }
 
-
-
-int fusion2(int liste[], int taille, int k, int j){
-    int retour=0;
-    int val1=liste[k];
-    int val2=liste[j];
-    if (val1!=val2){
-
-        for(int i=0;i<taille;++i){
-            if 
-            if(liste[i]==val2) liste[i]=val1;
-        }
-        retour=val1;
-    }
-    else{
-        retour=0;
-    }
-
-    return retour;
-}
 
 /* Enumere les elements de la classe demandee */
 void lister_classe(int liste[], int taille, int classe){
