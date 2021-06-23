@@ -1,17 +1,19 @@
+#include "composantC.h"
 #include "Matrice.h"
+#include "Partition.h"
 
 /* -------------------------------------------------------------------- */
 /* aff_matrice       fonction d'affciahge d'une matrice                 */
 /*                                                                      */
 /* En entrée: matrice, m:nb ligne , n:nb colonne                        */
 /* -------------------------------------------------------------------- */
-void aff_matrice(int ** matrice, int m, int n)
+void aff_matrice(int ** matrice, int m)
 {
     int     i,j;            // variables incrementations 
 
     for(i=0; i < m; i++)    //parcour de la matrice
     {
-        for(j = 0; j < n; j++)
+        for(j = 0; j <=i; j++)
         {
             printf("%d ",matrice[i][j]); 
         }
@@ -27,20 +29,23 @@ void aff_matrice(int ** matrice, int m, int n)
 /*                                                                      */                          
 /* En sortie: la matrice                                                */
 /* -------------------------------------------------------------------- */
-int ** gen_matrice(int m,int n) 
+int ** gen_matrice(int m) 
 {
     int     i,j;        // variables incrementations 
-    int     val;        // variable valeur du fichier 
     int     ** matrice; 
+    srand(time(NULL));
 
     matrice = (int **) malloc(m*sizeof(int *));
     
     for(i=0;i<m;i++)
     {
-    	matrice[i] = (int *) malloc(n*sizeof(int));
-        for(j=0;j<n;j++)
+    	matrice[i] = (int *) malloc((i+1)*sizeof(int));
+        for(j=0;j<i;j++)
         {
-            matrice[i][j]=0;          
+            if(rand()%m <= j)
+                matrice[i][j]=rand()%2;
+            else
+               matrice[i][j]=0;          
         }
     }
 
