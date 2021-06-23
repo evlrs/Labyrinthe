@@ -43,5 +43,7 @@ int main(){
     graphviz_gconnex(fic);
     calcul_composantes(liste);
     afficherListe(liste,taille);
+
+    free(p0);
     return 0;
 }
