@@ -1,4 +1,4 @@
-#include "composantC.h"
+#include "compC_mat.h"
 #include "Matrice.h"
 #include "Partition.h"
 
