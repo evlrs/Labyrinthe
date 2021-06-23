@@ -1,23 +1,21 @@
-all: compC_mat
+all: compC_list
 
 CC=gcc
 OPT= -c -g -Wall -Wextra
 
-compC_mat : compC_mat.o Matrice.o PartitionArb.o
-	$(CC) -o compC_mat compC_mat.o Matrice.o PartitionArb.o
+compC_list : compC_list.o PartitionArb.o
+	$(CC) -o compC_list compC_list.o  PartitionArb.o
 
-Matrice.o : Matrice.c compC_mat.h Matrice.h
-	$(CC) $(OPT) Matrice.c 
 
-PartitionArb.o : PartitionArb.c compC_mat.h Partition.h
+PartitionArb.o : PartitionArb.c compC_list.h Partition.h
 	$(CC) $(OPT) PartitionArb.c 
 
-compC_mat.o : compC_mat.c compC_mat.h Matrice.h Partition.h
-	$(CC) $(OPT) compC_mat.c 
+compC_list.o : compC_list.c compC_list.h Partition.h
+	$(CC) $(OPT) compC_list.c 
 
 clean : 
 	rm -rf *.o
 
 rmproper: clean
-	rm -f compC_mat
+	rm -f compC_list
 
