@@ -1,7 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
+#include "composantC.h"
+#include "Matrice.h"
+#include "Partition.h"
 
 void Init_Partition(int Parti[], int Level[], int taille)
 {
@@ -46,27 +45,27 @@ void Fusion(int Parti[], int Level[], int X, int Y)
 
 }
 
-void graphviz(int Parti[], int taille)
+void graph_part(int Parti[], int taille)
 {
 
    FILE *file = NULL;
 
-   file = fopen("graph_do.dot", "w");
+   file = fopen("graph_part.dot", "w");
    if (file != NULL)
    {
 
-      fputs("digraph {\n", file);
+      fputs("graph {\n", file);
 
       for (int i = 0; i < taille; ++i)
       {
-         fprintf(file, "\t %d -> %d;\n", i, Parti[i]);
+         fprintf(file, "\t %d -- %d;\n", i, Parti[i]);
       }
       fputs("}\n", file);
       fclose(file);
-      system("dot -Tjpg graph_do.dot -o graph_do.jpg");
+      system("dot -Tjpg graph_part.dot -o graph_part.jpg");
    }
 }
-
+/*
 int main()
 {
    int taille = 11;
@@ -89,4 +88,4 @@ int main()
    Aff_Partition(Level, taille);
    graphviz(Parti, taille);
    return 0;
-}
+}*/

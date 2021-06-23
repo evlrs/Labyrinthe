@@ -1,5 +1,6 @@
 CC=gcc 
 OPT= -c -g -Wall -Wextra
+
 main_part_nico : main_part_nico.o partition_nico.o graph_connex_nico.o
 	$(CC) -o main_part_nico main_part_nico.o partition_nico.o graph_connex_nico.o
 partition_nico.o : partition_nico.c partition_nico.h
