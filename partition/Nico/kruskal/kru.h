@@ -15,11 +15,15 @@ typedef struct Triple{
 
 int init_aretes(triple* aretes);
 void afficher_aretes(triple* aretes);
-void graphviz(triple* aretes);
-void calcul_composantes(triple* aretes, int liste[]);
-void fusion2(int liste[],int i, int j, int val);
+void graphviz(triple* aretes, int taille);
+void graphviz_chemin(triple* aretes, int taille);
+int calcul_composantes(triple* aretes, triple* chemin, int liste[]);
+void fusion(int liste[],int i, int val);
 void afficherListe(int liste[], int taille);
-void creer(int liste[], int taille);
+void creer(triple* aretes ,int liste[], int taille);
 void init_poids(triple* aretes, int poids[], int taille);
 void graph_list(triple *list);
 void melanger_aretes(triple* aretes);
+int numero_sprite(int murs);
+void nombre_murs(triple* chemin, int lab[H][L]);
+void afficher_matrice(int lab[H][L]);

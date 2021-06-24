@@ -1,0 +1,16 @@
+graph {
+    10 -- 11 [label= 0];
+    2 -- 7 [label= 1];
+    1 -- 2 [label= 2];
+    6 -- 11 [label= 3];
+    6 -- 7 [label= 4];
+    3 -- 8 [label= 6];
+    9 -- 14 [label= 7];
+    11 -- 12 [label= 8];
+    12 -- 13 [label= 9];
+    8 -- 9 [label= 10];
+    0 -- 5 [label= 12];
+    7 -- 8 [label= 13];
+    5 -- 10 [label= 14];
+    4 -- 9 [label= 16];
+}
