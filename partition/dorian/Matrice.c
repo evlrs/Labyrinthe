@@ -42,13 +42,12 @@ int ** gen_matrice(int m)
     	matrice[i] = (int *) malloc((i+1)*sizeof(int));
         for(j=0;j<i;j++)
         {
-            if(rand()%m <= j)
-                matrice[i][j]=rand()%2;
+            if (rand() / (float)__INT_MAX__ < 0.1)
+                matrice[i][j]=1;
             else
                matrice[i][j]=0;          
         }
     }
-
     return matrice;
 }
 

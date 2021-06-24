@@ -1,81 +1,77 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
+#include "Partition.h"
+#include "compC_list.h"
 
-typedef struct Elem
+void Init_Aret(Elem *tab, int m)
 {
-   int str;
-   int fin;
-   int val;
-}Elem;
+   int i, j;
+   int b = 0;
 
-void Init_Aret(Elem * tab,int m)
-{
-   int i,j;
-   int b=0;
-   srand(time(NULL));
-
-      for(i=0;i<m;i++)
+   for (i = 0; i < m; i++)
+   {
+      for (j = 0; j < i; j++)
+      {
+         if (rand() / (float)__INT_MAX__ < 0.1)
          {
-            for(j=0;j<i;j++)
-            {
-                  if(rand()%3==1)
-                  { 
-                     tab[b].str=i;
-                     tab[b].fin=j;
-                     tab[b].val=1;
-                    
-                     //printf("isok%d\n",b);
-                     //printf("debut:%d fin:%d valeur:%d\n",tab[b].str,tab[b].fin,tab[b].val);
-                     b++;
-                  }  
-            }
+            tab[b].str = i;
+            tab[b].fin = j;
+            tab[b].val = 1;
+            b++;
          }
+      }
+   }
 }
 
-void aff_liste(Elem * list)
+void aff_liste(Elem *list)
 {
-   int i=0;
-    while (list[i].str != 0)
-    {
-        printf("%d %d %d|",list[i].str,list[i].fin,list[i].val);
-        i++;
-        printf("\n");
-    }
-    printf("\n");
+   int i = 0;
+   while (list[i].str != 0)
+   {
+      printf("%d %d %d|", list[i].str, list[i].fin, list[i].val);
+      i++;
+      printf("\n");
+   }
 }
 
-void graph_list(Elem * list)
+void graph_list(Elem *list)
 {
-
    FILE *file = NULL;
-   int     i=0;            // variables incrementations 
+   int i = 0; // variables incrementations
    file = fopen("graph_list.dot", "w");
    if (file != NULL)
    {
       fputs("graph {\n", file);
-    while (list[i].str != 0)
-    {
-      fprintf(file, "\t %d -- %d [label = %d];\n",list[i].str,list[i].fin,list[i].val);
-       i++;
-    }
+      while (list[i].str != 0)
+      {
+         fprintf(file, "\t %d -- %d [label = %d];\n", list[i].str, list[i].fin, list[i].val);
+         i++;
+      }
       fputs("}\n", file);
       fclose(file);
       system("dot -Tjpg graph_list.dot -o graph_list.jpg");
    }
 }
 
+void Part_creat(int Part[], int Level[], Elem * list)
+{
+   int i=0;
+   while (list[i].str != 0)
+      {
+         Fusion(Part,Level,list[i].str, list[i].fin);
+         i++;
+      }
+}
+
 int main()
 {
-   int taille = 10;
+   int taille = 15;
+   srand(time(NULL));
 
-  // int Part[taille];
-   //int Level[taille];
+   int Part[taille];
+   int Level[taille];
 
-   Elem * Aret;
-   
-   Aret = malloc((taille*(taille-1)/2)*sizeof(Elem));
+   Elem *Aret;
+
+   Aret = malloc((taille * (taille - 1) / 2) * sizeof(Elem));
 
    Init_Aret(Aret, taille);
 
@@ -83,8 +79,16 @@ int main()
 
    graph_list(Aret);
 
+   Init_Partition(Part,Level,taille);
+
+   Part_creat(Part,Level,Aret);
+
+   Aff_Partition(Part, taille);
+   
+   graph_part(Part, taille);
+
+
    free(Aret);
 
-   
    return 0;
 }
