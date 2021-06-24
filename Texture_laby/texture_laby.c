@@ -7,8 +7,9 @@
 
 #define LARGEUR 400
 #define HAUTEUR 400
-#define LIGNE 20
-#define COLONE 35
+
+#define LIGNE 5
+#define COLONE 5
 
 SDL_Window *window;
 SDL_Renderer *renderer;
@@ -44,31 +45,49 @@ int Init_Window(char *titre, int larg, int longr)
    return (0);
 }
 
-void affichage(int color, int X, int Y, int W, int H)
+SDL_Texture *Init_Texture(char *img)
 {
-   SDL_Rect rect;
-   int R, V, B;
-   switch (color)
+   SDL_Surface *Image = NULL;
+   SDL_Texture *Texture = NULL;
+
+   Image = IMG_Load(img);
+   if (Image == NULL)
    {
-   case 0:
-      R = 255;
-      V = 255;
-      B = 255;
-      break;
-   case 1:
-      R = 10;
-      V = 10;
-      B = 10;
-      break;
-   default:
-      break;
+      fprintf(stdin, "Erreur chargement image : %s\n", SDL_GetError());
+      SDL_DestroyWindow(window);
+      SDL_DestroyRenderer(renderer);
    }
-   SDL_SetRenderDrawColor(renderer, R, V, B, 0);
-   rect.x = X;
-   rect.y = Y;
-   rect.w = W;
-   rect.h = H;
-   SDL_RenderFillRect(renderer, &rect);
+   Texture = SDL_CreateTextureFromSurface(renderer, Image);
+   if (Texture == 0)
+   {
+      fprintf(stdin, "Erreur chargement texture : %s\n", SDL_GetError());
+      SDL_DestroyWindow(window);
+      SDL_DestroyRenderer(renderer);
+   }
+   SDL_FreeSurface(Image);
+
+   return Texture;
+}
+
+void Init_Rect_Mur(SDL_Rect *etat, SDL_Rect *source)
+{
+   int nb_images_murW = 4;
+   int nb_images_murH = 4;
+
+   int set_x = source->w / nb_images_murW,
+       set_y = source->h / nb_images_murH;
+
+       printf("%d, %d \n",set_x,set_y);
+
+   for (int i = 0; i < 16; i++)
+   {
+      etat[i].x = (i % 4) * set_x ;
+      etat[i].y = (i/ 4) * set_y ;
+      etat[i].w = set_x;
+      etat[i].h = set_y;
+
+       printf("x:%d y:%d w:%d h:%d\n",etat[i].x,etat[i].y,etat[i].w,etat[i].h);
+   }
 }
 
 void Init_Tab(int tab[LIGNE][COLONE])
@@ -79,7 +98,7 @@ void Init_Tab(int tab[LIGNE][COLONE])
    for (i = 0; i < LIGNE; ++i)
    {
       for (j = 0; j < COLONE; ++j)
-         tab[i][j] = rand() % 16;
+         tab[i][j] = rand()%16;
    }
 }
 
@@ -102,57 +121,59 @@ void affi_Tex(int tab[LIGNE][COLONE])
    printf("\n");
 }
 
-void affi_Gra(int tab[LIGNE][COLONE], int W, int H)
+void affi_Gra(int tab[LIGNE][COLONE], SDL_Texture *Mur, SDL_Rect *source, SDL_Rect *dest)
 {
    int i, j;
+   int val = 16;
    SDL_RenderClear(renderer);
 
    for (i = 0; i < LIGNE; ++i)
    {
       for (j = 0; j < COLONE; ++j)
       {
-         affichage(tab[i][j], j * (W / COLONE), i * (H / LIGNE), W / COLONE, H / LIGNE);
+         val = tab[i][j];
+         //val=15;
+         dest->x = j * dest->w;
+         dest->y = i * dest->h;
+         //printf("x:%d y:%d w:%d h:%d\n",source[val].x,source[val].y,source[val].w,source[val].h);
+         SDL_RenderCopy(renderer, Mur, &source[val], dest);
       }
    }
-   /* afficher à l'ecran */
-
-   SDL_RenderPresent(renderer);
-   SDL_Delay(1);
-}
-
-int Coordonne(int val, int x, int w, int h)
-{
-   float coef = 0;
-   int convert = 0;
-
-   if (x == 1)
-   {
-      coef = w / COLONE;
-   }
-   else
-   {
-      coef = h / LIGNE;
-   }
-   convert = val / coef;
-   return convert;
 }
 
 int main()
 {
-   Init_Window("V0 : Labyrinthe", LARGEUR, HAUTEUR);
    int Grille[LIGNE][COLONE];
    Init_Tab(Grille);
 
-   int larg = LARGEUR;
-   int haut = HAUTEUR;
+   Init_Window("V0 : Labyrinthe", LARGEUR, HAUTEUR);
+
+   SDL_Texture *Mur = NULL;
+   Mur = Init_Texture("mur.png");
 
    affi_Tex(Grille);
-   affi_Gra(Grille, larg, haut);
 
    int running = 1;
-   int pause = 0;
-   int cordX, cordY;
+
    SDL_Event event;
+
+   SDL_Rect window_dim = {0};
+
+   SDL_Rect dest_mur = {0};
+   SDL_Rect source_mur = {0};
+   SDL_Rect etat_mur[16] = {0};
+
+   SDL_GetWindowSize(window, &window_dim.w, &window_dim.h);
+   SDL_QueryTexture(Mur, NULL, NULL, &source_mur.w, &source_mur.h);
+
+   dest_mur = window_dim;
+
+   Init_Rect_Mur(etat_mur, &source_mur);
+
+   dest_mur.w = window_dim.w / COLONE;
+   dest_mur.h = window_dim.h / LIGNE;
+   dest_mur.y = 0;
+   dest_mur.x = 0;
 
    while (running)
    {
@@ -162,8 +183,8 @@ int main()
          {
          case SDL_QUIT:
             //printf("on quitte\n");
-            SDL_DestroyRenderer(renderer);
-            SDL_DestroyWindow(window);
+            //SDL_DestroyRenderer(renderer);
+            //SDL_DestroyWindow(window);
             running = 0;
             break;
 
@@ -175,17 +196,7 @@ int main()
                printf("appui sur la croix\n");
                break;
 
-            case SDL_WINDOWEVENT_SIZE_CHANGED:
-               larg = event.window.data1;
-               haut = event.window.data2;
-               affi_Gra(Grille, larg, haut);
-               break;
-            default:
-               break;
-            }
-            break;
-         
-         case SDL_MOUSEBUTTONDOWN:
+               /*case SDL_MOUSEBUTTONDOWN:
             switch (event.button.button)
             {
 
@@ -209,15 +220,11 @@ int main()
          case SDL_KEYDOWN:
             switch (event.key.keysym.sym)
             {
-            case SDLK_SPACE:
-               pause = !(pause);
-               break;
             case SDLK_p:
                running = 0;
-               ;
                break;
             default:
-               break;
+               break;*/
             }
             break;
          }
@@ -225,8 +232,10 @@ int main()
 
       SDL_Delay(1); //  delai minimal
 
-      affi_Tex(Grille);
-      affi_Gra(Grille, larg, haut);
+      // affi_Tex(Grille);
+
+      affi_Gra(Grille, Mur, etat_mur, &dest_mur);
+      SDL_RenderPresent(renderer);
       SDL_Delay(100);
    }
 
