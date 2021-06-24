@@ -20,21 +20,117 @@ int main(){
         printf("Initialisation aretes pas bonnes : %d != %d \n",nbAretes,NAR);
     }
 
-    graphviz(aretes,NAR);
+    //graphviz(aretes,NAR);
     melanger_aretes(aretes);
-    graphviz(aretes,NAR);
+    //graphviz(aretes,NAR);
     
     int liste[NAR];
     int nbChe;
     int lab[H][L];
     creer(aretes,liste,NAR);
     nbChe=calcul_composantes(aretes,chemin,liste);
-    graphviz_chemin(chemin,nbChe);
+    //graphviz_chemin(chemin,nbChe);
 
     nombre_murs(chemin,lab);
-    afficher_matrice(lab);
+    //afficher_matrice(lab);
     
+    /* SDL */
+    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+        SDL_Log("Error : SDL initialisation - %s\n", SDL_GetError());      
+        exit(EXIT_FAILURE);
+    }
+
+    SDL_Window *win = NULL;
+    win = SDL_CreateWindow("Fenêtre", 0, 0, L*D, H*D, 0);
+
+    if (win == NULL) {
+        SDL_Log("Error : SDL window creation - %s\n", SDL_GetError());   
+        SDL_DestroyWindow(win);
+        SDL_Quit();
+        exit(EXIT_FAILURE);
+    }
+    
+    /* initialisation renderer */
+    SDL_Renderer *renderer;
+    renderer = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);
+
+    if (renderer == 0) {
+        fprintf(stderr, "Erreur d'initialisation de la SDL : %s\n", SDL_GetError()); 
+    }
+
+    SDL_Texture *my_texture = NULL; 
+    my_texture = IMG_LoadTexture(renderer,"./mur.png");
+
+    SDL_Rect source = {0}, window_dimensions = {0}, destination = {0}, state = {0}; 
+    SDL_GetWindowSize(win, &window_dimensions.w, &window_dimensions.h);
+    SDL_QueryTexture(my_texture, NULL, NULL, &source.w, &source.h);
+
+ 
+
+    int n=0;
+    int offset_x = source.w/4, offset_y = source.h/4; 
+    int zoom=1;
+    state.w = offset_x; 
+    state.h = offset_y;
+    destination.w = window_dimensions.w/L*zoom;
+    destination.h = window_dimensions.h/H*zoom;
+    destination.x = 0;
+    destination.y = 0;
+    state.x = 0;
+    state.y = 0;
+  
+
+    SDL_bool program_on = SDL_TRUE;
+    while (program_on) {                                     // La boucle des évènements
+        SDL_Event event;                                     // Evènement à traiter
+
+        while (program_on && SDL_PollEvent(&event)) {       // Tant que la file des évènements stockés n'est pas vide et qu'on n'a pas                                                     
+                                                            // terminé le programme Défiler l'élément en tête de file dans 'event'
+            switch (event.type) {                           // En fonction de la valeur du type de cet évènement
+            case SDL_QUIT:                                  // Un évènement simple, on a cliqué sur la x de la // fenêtre
+                program_on = SDL_FALSE;                     // Il est temps d'arrêter le programme
+                break;
+
+            case SDL_KEYDOWN:                               // Le type de event est : une touche appuyée
+                                                            // comme la valeur du type est SDL_Keydown, dans la pratie 'union' de
+                                                            // l'event, plusieurs champs deviennent pertinents   
+                switch (event.key.keysym.sym) {             // la touche appuyée est ...
+                case SDLK_ESCAPE:                           // 'ESCAPE'  
+                case SDLK_q:                                // 'q'
+                    program_on = SDL_FALSE;                 // 'escape' ou 'q', d'autres façons de quitter le programme                                     
+                    break;
+                default:                                    // Une touche appuyée qu'on ne traite pas
+                    break;
+                }
+                break;
+            default:                                        // Les évènements qu'on n'a pas envisagé
+                break;
+            }
+        }
+        
+        for(int k=0;k<L*H;++k){
+
+            n=lab[k/L][k%L];
+            destination.x = destination.w*(k%L);
+            destination.y = destination.h*(k/L);    
+            state.x = offset_x*(numero_sprite(n)%4);
+            state.y = offset_y*(numero_sprite(n)/4);
+            SDL_RenderCopy(renderer, my_texture, &state, &destination); 
+        
+        }
+
+        SDL_RenderPresent(renderer);       
+        SDL_Delay(100);                     
+        SDL_RenderClear(renderer);
+    }
+    
+    SDL_DestroyTexture(my_texture);
+    SDL_DestroyWindow(win);
+    SDL_DestroyRenderer(renderer);
+    IMG_Quit();  
+    SDL_Quit(); 
     free(aretes);
+    free(chemin);
 }
 
 /* Crée toutes les arretes possible */
@@ -155,7 +251,7 @@ int calcul_composantes(triple* aretes, triple* chemin, int liste[]){
             chemin[nbChe].arrivee=a;
             chemin[nbChe].val=v;
             nbChe++;
-            graphviz_chemin(aretes,nbChe);
+            //graphviz_chemin(aretes,nbChe);
         } 
     }
     return nbChe;
@@ -171,8 +267,7 @@ void fusion(int liste[], int i, int val){
     }
 }
 
-/* Affiche la liste du tas */
-
+/* Affiche la liste de la liste*/
 void afficherListe(int liste[], int taille){
     for(int i=0;i<taille;++i){
         printf("%d ",liste[i]);
@@ -255,21 +350,21 @@ void nombre_murs(triple* chemin, int lab[H][L]){
     int d,a;
     int mur;
     for(int i=0;i<L*H;++i){
-        mur=0;
+        mur=15;
         for(int j=0;j<NAR;++j){
             d=chemin[j].depart;
             a=chemin[j].arrivee;
             if(d==i){
-                if(a==d+1)   mur+=2;
-                if(a==d-1)   mur+=8;
-                if(a==d+L)   mur+=4;
-                if(a==d-L)   mur+=1;
+                if(a==d+1)   mur-=2;
+                if(a==d-1)   mur-=8;
+                if(a==d+L)   mur-=4;
+                if(a==d-L)   mur-=1;
             }
             if(a==i){
-                if(d==a+1)   mur+=2;
-                if(d==a-1)   mur+=8;
-                if(d==a+L)   mur+=4;
-                if(d==a-L)   mur+=1;                
+                if(d==a+1)   mur-=2;
+                if(d==a-1)   mur-=8;
+                if(d==a+L)   mur-=4;
+                if(d==a-L)   mur-=1;                
             }
             lab[i/L][i%L]=mur;
         }

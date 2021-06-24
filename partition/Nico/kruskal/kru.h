@@ -2,9 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
-#define L 5 
-#define H 3 
+#define L 50
+#define H 20 
+#define D (1900/L)
 #define NAR ((L-1)*H+(H-1)*L) //Nb aretes
 
 typedef struct Triple{
