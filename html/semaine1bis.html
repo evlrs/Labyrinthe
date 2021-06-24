@@ -1,0 +1,666 @@
+<!doctype html>
+<html>
+
+<head>
+       <title>Semaine 1</title>
+       <meta charset="utf-8">
+       <link rel="stylesheet" href="style1.css" >
+       
+</head>
+
+<body>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="https://gitlab.isima.fr/evlaurans/Labyrinthe">Git</a></li>
+        <li><a href="planning.html">Planning</a></li>
+        <li><a class="active" href="semaine1.html">Semaine 1</a></li>
+        <li><a href="semaine2.html">Semaine 2</a></li>
+    </ul>
+    <div >
+        
+    
+        <div class="vertical-menu">
+            <a href="#tpsreel">Planning en temps Réel</a>
+            <a href="#previs">Planning prévisionnel</a>
+            <a href="#snake">Snake</a>
+            <a href="#anim">Animation</a>
+            <a href="#jdlv">Jeux de la vie</a>
+            <a href="#nyancat">Chef d'Oeuvre NyanCat</a>
+        </div>
+
+        <div style="right:0;">
+            <table id="tpsreel">
+            <caption>Planning en temps réel</caption>
+        
+            <thead> <!-- En-tête du tableau -->
+                <tr>
+                    <th>Date</th>
+                    <th>Nicolas</th>
+                    <th>Evan</th>
+                    <th>Dorian</th>
+                </tr>
+            </thead>
+        
+            <tfoot> 
+                <tr>
+                </tr>
+            </tfoot>
+
+            <tbody> <!-- Corps du tableau -->
+                <tr id="matin">
+                    <td>14 juin - Matin</td>
+                    <td class="SDL2">
+                       <button class="btnPopup">SDL2</button>
+                       <div class="overlay">
+                       <div id="popup" class="popup">
+                       <h2>
+                       SDL2 :
+                       <span class="btnClose">&times;</span>
+                       </h2>
+                       <div>
+                           Travail sur les Fenetres, sdl_fenetre et sur le rendu, sdl_render et sdl_serpent
+                       </div>
+                       </div>
+                       </div>
+                    </td>
+                    <td class="GIT"><button class="btnPopup">GIT</button>
+                       <div class="overlay">
+                       <div id="popup" class="popup">
+                       <h2>
+                       GIT :
+                       <span class="btnClose">&times;</span>
+                       </h2>
+                       <div>
+                           Creation et configuration du GitHub
+                       </div>
+                       </div>
+                       </div></td>
+                    <td class="SDL2">
+                           <button class="btnPopup">SDL2</button>
+                           <div class="overlay">
+                           <div id="popup" class="popup">
+                           <h2>
+                           SDL2 :
+                           <span class="btnClose">&times;</span>
+                           </h2>
+                           <div>
+                           Travail sur les Fenetre, X_fenetre et HTML: Creation page web pour le projet
+                           </div>
+                           </div>
+                           </div>
+                    </td>
+                </tr>
+                <tr id="amidi">
+                    <td>14 juin - Après midi</td>
+                    <td class="SDL2">
+                       <button class="btnPopup">SDL2</button>
+                       <div class="overlay">
+                       <div id="popup" class="popup">
+                       <h2>
+                       SDL2 :
+                       <span class="btnClose">&times;</span>
+                       </h2>
+                       <div>
+                           Travail sur le render, sdl_serpent
+                       </div>
+                       </div>
+                       </div>
+                    </td>
+                    <td class="HTML">
+                       <button class="btnPopup">HTML</button>
+                       <div class="overlay">
+                       <div id="popup" class="popup">
+                       <h2>
+                        HTML :
+                       <span class="btnClose">&times;</span>
+                       </h2>
+                       <div>
+                           Evolution page web pour le projet et Travail sur les fenetres,les rendus
+                       </div>
+                       </div>
+                       </div>
+                    </td>
+                    <td class="HTML">
+                       <button id="btnPopup" class="btnPopup">HTML</button>
+                       <div class="overlay">
+                       <div class="popup">
+                       <h2>
+                       SDL2 :
+                       <span id="btnClose" class="btnClose">&times;</span>
+                       </h2>
+                       <div>
+                           Evolution page web et du SDL sur le rendu et le snake
+                       </div>
+                       </div>
+                       </div>
+                    </td>
+                </tr>
+                <tr id="matin">
+                    <td>15 juin - Matin</td>
+                    <td class="SDL2">
+                       <button id="btnPopup" class="btnPopup">SDL2</button>
+                       <div id="overlay" class="overlay">
+                       <div id="popup" class="popup">
+                       <h2>
+                       SDL2 :
+                       <span id="btnClose" class="btnClose">&times;</span>
+                       </h2>
+                       <div>
+                           Travail sur jeu de la vie
+                       </div>
+                       </div>
+                       </div>
+                    </td>
+                    <td class="SDL2">
+                       <button id="btnPopup" class="btnPopup">SDL2</button>
+                       <div id="overlay" class="overlay">
+                       <div id="popup" class="popup">
+                       <h2>
+                       SDL2 :
+                       <span id="btnClose" class="btnClose">&times;</span>
+                       </h2>
+                       <div>
+                           Travail sur le Snake et LifeGame
+                       </div>
+                       </div>
+                       </div>
+                    </td>
+                    <td class="SDL2">
+                       <button id="btnPopup" class="btnPopup">SDL2</button>
+                       <div id="overlay" class="overlay">
+                       <div id="popup" class="popup">
+                       <h2>
+                       SDL2 :
+                       <span id="btnClose" class="btnClose">&times;</span>
+                       </h2>
+                       <div>
+                           Finition sur le rendu des serpents et travail sur le LifeGame
+                       </div>
+                       </div>
+                       </div>
+                    </td>
+                </tr>
+                <tr id="amidi">
+                    <td>15 juin - Après midi</td>
+                    <td class="SDL2">
+                       <button id="btnPopup" class="btnPopup">SDL2</button>
+                       <div id="overlay" class="overlay">
+                       <div id="popup" class="popup">
+                       <h2>
+                       SDL2 :
+                       <span id="btnClose" class="btnClose">&times;</span>
+                       </h2>
+                       <div>
+                           Fin du jeu de la vie graphique et début du travail sur les textures                    </div>
+                       </div>
+                       </div>
+                    </td>
+                    <td class="SDL2">
+                       <button id="btnPopup" class="btnPopup">SDL2</button>
+                       <div id="overlay" class="overlay">
+                       <div id="popup" class="popup">
+                       <h2>
+                       SDL:
+                       <span id="btnClose" class="btnClose">&times;</span>
+                       </h2>
+                       <div>
+                           Travail sur le jeu de la vie,Migration et Evolution page web pour le projet </div>
+                       </div>
+                       </div>
+                    </td>
+                    <td class="HTML">
+                       <button id="btnPopup" class="btnPopup">HTML</button>
+                       <div id="overlay" class="overlay">
+                       <div id="popup" class="popup">
+                       <h2>
+                       HTML :
+                       <span id="btnClose" class="btnClose">&times;</span>
+                       </h2>
+                       <div>
+                           Evolution page web pour le projet et Finition du jeu de la vie graphique
+                       </div>
+                       </div>
+                       </div>
+                    </td>
+                </tr>
+                <tr id="matin">
+                    <td>16 juin - Matin</td>
+                    <td class="SDL2">
+                       <button id="btnPopup" class="btnPopup">SDL2</button>
+                       <div id="overlay" class="overlay">
+                       <div id="popup" class="popup">
+                       <h2>
+                       SDL2 :
+                       <span id="btnClose" class="btnClose">&times;</span>
+                       </h2>
+                       <div>
+                           Travail sur les textures et debut de l'animation
+                       </div>
+                       </div>
+                       </div>
+                    </td>
+                    <td class="SDL2">
+                       <button id="btnPopup" class="btnPopup">SDL2</button>
+                       <div id="overlay" class="overlay">
+                       <div id="popup" class="popup">
+                       <h2>
+                       SDL2 :
+                       <span id="btnClose" class="btnClose">&times;</span>
+                       </h2>
+                       <div>
+                           Travail sur les textures 
+                       </div>
+                       </div>
+                       </div>
+                    </td>
+                    <td class="SDL2">
+                       <button id="btnPopup" class="btnPopup">SDL2</button>
+                       <div id="overlay" class="overlay">
+                       <div id="popup" class="popup">
+                       <h2>
+                       SDL2 :
+                       <span id="btnClose" class="btnClose">&times;</span>
+                       </h2>
+                       <div>
+                           Travail sur les textures: Texture et animation Nyancat                    </div>
+                       </div>
+                       </div>
+                    </td>
+                </tr>
+                <tr id="amidi">
+                    <td>16 juin - Après midi</td>
+                    <td class="SDL2">
+                       <button id="btnPopup" class="btnPopup">SDL2</button>
+                       <div id="overlay" class="overlay">
+                       <div id="popup" class="popup">
+                       <h2>
+                       SDL2 :
+                       <span id="btnClose" class="btnClose">&times;</span>
+                       </h2>
+                       <div>
+                           Fin de l'animation et prise en main des événements                    </div>
+                       </div>
+                       </div>
+                    </td>
+                    <td class="HTLM">
+                       <button id="btnPopup" class="btnPopup">HTML</button>
+                       <div id="overlay" class="overlay">
+                       <div id="popup" class="popup">
+                       <h2>
+                       HTLM :
+                       <span id="btnClose" class="btnClose">&times;</span>
+                       </h2>
+                       <div>
+                           Evolution de la page web & Travail sur une animation
+                       </div>
+                       </div>
+                       </div>
+                    </td>
+                    <td class="SDL2">
+                       <button id="btnPopup" class="btnPopup">SDL2</button>
+                       <div id="overlay" class="overlay">
+                       <div id="popup" class="popup">
+                       <h2>
+                       SDL2 :
+                       <span id="btnClose" class="btnClose">&times;</span>
+                       </h2>
+                       <div>
+                           Premier chef d'oeuvre
+                       </div>
+                       </div>
+                       </div>
+                    </td>
+                </tr>
+                <tr id="matin">
+                    <td>17 juin - Matin</td>
+                    <td class="SDL2">
+                       <button id="btnPopup" class="btnPopup">SDL2</button>
+                       <div id="overlay" class="overlay">
+                       <div id="popup" class="popup">
+                       <h2>
+                       SDL2 :
+                       <span id="btnClose" class="btnClose">&times;</span>
+                       </h2>
+                       <div>
+                           Application des événements au jeu de la vie & travail sur affichage de texte
+                       </div>
+                       </div>
+                       </div>
+                    </td>
+                    <td class="SDL2">
+                       <button id="btnPopup" class="btnPopup">SDL2</button>
+                       <div id="overlay" class="overlay">
+                       <div id="popup" class="popup">
+                       <h2>
+                       SDL2 :
+                       <span id="btnClose" class="btnClose">&times;</span>
+                       </h2>
+                       <div>
+                           Travail sur les événements
+                       </div>
+                       </div>
+                       </div>
+                    </td>
+                    <td class="SDL2">
+                       <button id="btnPopup" class="btnPopup">SDL2</button>
+                       <div id="overlay" class="overlay">
+                       <div id="popup" class="popup">
+                       <h2>
+                       SDL2 :
+                       <span id="btnClose" class="btnClose">&times;</span>
+                       </h2>
+                       <div>
+                           Premier chef d'oeuvre
+                       </div>
+                       </div>
+                       </div>
+                    </td>
+                </tr>
+                <tr id="amidi">
+                    <td>17 juin - Après midi</td>
+                    <td class="SDL2">
+                       <button id="btnPopup" class="btnPopup">SDL2</button>
+                       <div id="overlay" class="overlay">
+                       <div id="popup" class="popup">
+                       <h2>
+                       SDL2 :
+                       <span id="btnClose" class="btnClose">&times;</span>
+                       </h2>
+                       <div>
+                           Mise en pratique de l'écriture pour implémenter un score pour le chef d'oeuvre. Amélioration de chef d'oeuvre
+                       </div>
+                       </div>
+                       </div>
+                    </td>
+                    <td class="SDL2">
+                       <button id="btnPopup" class="btnPopup">SDL2</button>
+                       <div id="overlay" class="overlay">
+                       <div id="popup" class="popup">
+                       <h2>
+                       SDL2 :
+                       <span id="btnClose" class="btnClose">&times;</span>
+                       </h2>
+                       <div>
+                           Travail sur l'écriture graphique & aide partielle sur le chef d'oeuvre, Avancement sur la page web
+                       </div>
+                       </div>
+                       </div>
+                    </td>
+                    <td class="SDL2">
+                       <button id="btnPopup" class="btnPopup">SDL2</button>
+                       <div id="overlay" class="overlay">
+                       <div id="popup" class="popup">
+                       <h2>
+                       SDL2 :
+                       <span id="btnClose" class="btnClose">&times;</span>
+                       </h2>
+                       <div>
+                               Finition du chef d'oeuvre et aide sur la page web
+                       </div>
+                       </div>
+                       </div>
+                    </td>
+                </tr>
+                <tr id="matin">
+                    <td>18 juin - Matin</td>
+                    <td class="tas2">
+                       <button id="btnPopup" class="btnPopup">Tas binaire</button>
+                       <div id="overlay" class="overlay">
+                       <div id="popup" class="popup">
+                       <h2>
+                       Tas binaire: 
+                       <span id="btnClose" class="btnClose">&times;</span>
+                       </h2>
+                       <div>
+                        Commencement des fonctions utiles pour la gestion du tas binaire et htlm pour la présentation
+                       </div>
+                       </div>
+                       </div>
+                    </td>
+                    <td class="tas2">
+                       <button id="btnPopup" class="btnPopup">Tas binaire</button>
+                       <div id="overlay" class="overlay">
+                       <div id="popup" class="popup">
+                       <h2>
+                       Tas binaire :
+                       <span id="btnClose" class="btnClose">&times;</span>
+                       </h2>
+                       <div>
+                        Implémentation des fonctions pour gérer un tas binaire et travail sur le site pour la présentation 
+                       </div>
+                       </div>
+                       </div>
+                    </td>
+                    <td class="tas2">
+                       <button id="btnPopup" class="btnPopup">Tas binaire</button>
+                       <div id="overlay" class="overlay">
+                       <div id="popup" class="popup">
+                       <h2>
+                      Tas binaire :
+                       <span id="btnClose" class="btnClose">&times;</span>
+                       </h2>
+                       <div>
+                        Implémentation des fonctions pour gérer un tas binaire et travail sur le site pour la présentation 
+                       </div>
+                       </div>
+                       </div>
+                    </td>
+                </tr>
+                <tr id="amidi">
+                    <td>18 juin - Après midi</td>
+                    <td class="tas2">
+                       <button id="btnPopup" class="btnPopup">Tas binaire</button>
+                       <div id="overlay" class="overlay">
+                       <div id="popup" class="popup">
+                       <h2>
+                        Tas binaire :
+                       <span id="btnClose" class="btnClose">&times;</span>
+                       </h2>
+                       <div>
+                        Travail sur les tas binaire et Représentation graphique avec graphviz
+                       </div>
+                       </div>
+                       </div>
+                    </td>
+                    <td class="tas2">
+                       <button id="btnPopup" class="btnPopup">Tas binaire</button>
+                       <div id="overlay" class="overlay">
+                       <div id="popup" class="popup">
+                       <h2>
+                        Tas binaire
+                       <span id="btnClose" class="btnClose">&times;</span>
+                       </h2>
+                       <div>
+                        Travail sur les tas binaire  
+                       </div>
+                       </div>
+                       </div>
+                    </td>
+                    <td class="tas2">
+                       <button id="btnPopup" class="btnPopup">Tas binaire</button>
+                       <div id="overlay" class="overlay">
+                       <div id="popup" class="popup">
+                       <h2>
+                        Tas binaire :
+                       <span id="btnClose" class="btnClose">&times;</span>
+                       </h2>
+                       <div>
+                        Travail sur les tas binaire et Représentation graphique avec graphviz
+                       </div>
+                       </div>
+                       </div>
+                    </td>
+                </tr>
+            </tbody>
+            </table>
+
+                <a></a>
+                <h2></h2>
+            <p></p>
+
+            <table  id="previs">
+
+                <caption>Planning prévisionnel</caption>
+
+                <thead> <!-- En-tête du tableau -->
+                    <tr>
+                        <th>Date</th>
+                        <th>Nicolas</th>
+                        <th>Evan</th>
+                        <th>Dorian</th>
+                    </tr>
+                </thead>
+            
+
+            
+                <tbody> <!-- Corps du tableau -->
+                    <tr id="matin">
+                        <td>14 juin - Matin</td>
+                        <td class="SDL2">SDL2</td>
+                        <td class="SDL2">SDL2</td>
+                        <td class="html">HTML</td>
+                    </tr>
+                    <tr id="amidi">
+                        <td>14 juin - Après midi</td>
+                        <td class="SDL2">SDL2</td>
+                        <td class="SDL2">SDL2</td>
+                        <td class="html">HTML</td>
+                    </tr>
+                    <tr id="matin">
+                        <td>15 juin - Matin</td>
+                        <td class="SDL2">SDL2</td>
+                        <td class="SDL2">SDL2</td>
+                        <td class="SDL2">SDL2</td>
+                    </tr>
+                    <tr id="amidi">
+                        <td>15 juin - Après midi</td>
+                        <td class="SDL2">SDL2</td>
+                        <td class="SDL2">SDL2</td>
+                        <td class="SDL2">SDL2</td>
+                    </tr>
+                    <tr id="matin">
+                        <td>16 juin - Matin</td>
+                        <td class="SDL2">SDL2</td>
+                        <td class="SDL2">SDL2</td>
+                        <td class="SDL2">SDL2</td>
+                    </tr>
+                    <tr id="amidi">
+                        <td>16 juin - Après midi</td>
+                        <td class="SDL2">SDL2</td>
+                        <td class="SDL2">SDL2</td>
+                        <td class="SDL2">SDL2</td>
+                    </tr>
+                    <tr id="matin">
+                        <td>17 juin - Matin</td>
+                        <td class="tas2">Tas Binaire</td>
+                        <td class="tas2">Tas Binaire</td>
+                        <td class="tas2">Tas Binaire</td>
+                    </tr>
+                    <tr id="amidi">
+                        <td>17 juin - Après midi</td>
+                        <td class="tas2">Tas Binaire</td>
+                        <td class="tas2">Tas Binaire</td>
+                        <td class="tas2">Tas Binaire</td>
+                    </tr>
+                    <tr id="matin">
+                        <td>18 juin - Matin</td>
+                        <td class="partition">Partition</td>
+                        <td class="partition">Partition</td>
+                        <td class="partition">Partition</td>
+                    </tr>
+                    <tr id="amidi">
+                        <td>18 juin - Après midi</td>
+                        <td class="partition">Partition</td>
+                        <td class="partition">Partition</td>
+                        <td class="partition" id="snake">Partition</td>
+                    </tr>
+                </tbody>
+            </table >
+
+
+            <h1 align="center"> Snake </h1>
+            <p></p>
+
+            <p></p>   
+
+
+            <p> </p>
+            <p> </p>
+
+            <p>Boucle intéressante : </p>
+            <p align="center"> <img src="./image/bouclezoom.png"  > </p>
+
+            <p> Liens vers le fichier du code C : <a href="snace.c"> Snake C </a>  / <a href="animation_evan.txt" id="anim"> Snake.txt</a> </p>
+            <p><br></p>
+
+            <h1 align="center" > Animation </h1>
+            <p></p>
+
+            <p></p>   
+
+
+            <p> </p>
+            <p> </p>
+
+            <p>Boucle intéressante : </p>
+            <p align="center"> <img src="./image/bouclezoom.png"  > </p>
+
+            <p> Liens vers le fichier du code C : <a href="animation_evan.c"> Animation C </a>  / <a href="animation_evan.txt" id="jdlv"> Animation.txt</a></p>
+            <p><br></p>
+            <h1 align="center"> Jeux de la vie </h1>
+            <p> Ce mini projet a été effectué en deux étapes : </p>
+        
+            <p> Première étape, les règles du jeu et le rendu graphique :  </p>   
+            <p align="center"> <img src="./image/JdlV_regles.png"  width="50%" height="10%"> </p>
+
+            <p> Une fois les règles crées, il faut que le jeu apparaisse à l'écran.</p>
+            <p align="center"> <img src="./image/JdlV_jeu.png"  width="50%" height="10%"> </p>
+        
+            <p>La deuxième partie est arrivée après quelques exercices.</p>
+            <p><br></p>
+            <p>On a la possibilité d'avoir une personne qui peut intéragir avec le jeu : </p> 
+            <p align="center"> <img src="./image/JdlV_interactions.png"  width="50%" height="10%"> </p>
+            <p>Possibilités :</p>
+            <p style="font-size: 22px;">- Fermer le jeu avec la X.</p>
+            <p style="font-size: 22px;">- Quitter le jeu avec 'echap' ou Q</p>
+            <p style="font-size: 22px;">- Mettre le jeu en pause avec 'espace' ou P</p>
+            <p style="font-size: 22px;">- Redémarer le jeu avec 'entrée'</p>
+            <p style="font-size: 22px;">- Cliquer pour mettre un pixel en plus (ou en moins)</p>
+
+            <p><br></p>
+
+        
+            <p>On a fait plusieurs fichiers pour séparer les étapes, on a donc fait un makefile pour compiler : </p> 
+            <p align="center"> <img src="./image/JdlV_makefile.png"  width="50%" height="10%"> </p>
+        
+            <p> Liens vers le fichier du code C : <a href="JdlV_main.c"> main.c </a>  / <a id="nyancat" href="JdlV_main.txt"> main.txt </a></p>
+            <p><br></p>
+            <h1 align="center" > Chef d'Oeuvre NyanCat </h1>
+            <p><br></p>
+            <p> Le prochain exercice était la gestion de l'écriture sur la fenetre : </p>
+            <p> On va pour cela utiliser la librairie TTF puis on ouvre la font desiré </p>
+            <p align="center"> <img src="./image/Init_ttf.png"  width="50%" height="10%"> </p>
+            <p> une fois la font initialiser on peut l'utiliser pour afficher un message</p>
+            <p align="center"> <img src="./image/Boucle3.png"  width="50%" height="10%"> </p>
+            <p> Suite aux quelques exercices qui ont été présentés par mes camadares on a commencé à realiser un premier chef d'oeuvre : </p>
+            <p> L'idée est partie d'une envie de refaire un meme de l'internet, le NYAN CAT :  </p>  
+            <p align="center"> <video src="video/nyan-cat-original.mp4" autoplay  width="50%" height="10%" controls poster="vignette.jpg">
+                  Cette vidéo ne peut être affichée sur votre navigateur Internet.<br>
+                  Une version est disponible en téléchargement sous <a href="./video/nyan-cat-original.mp4">adresse du lien </a> . 
+                </video>
+            </p>
+            <p style="line-height: 190%;"> Une fois l'animation créée lors de l'exrcice sur les animations, on s'est dit que l'on aller se reservir de cette animation pour créer notre chef d'oeuvre.</br>Le but est d'aider le petit chat à éviter les planètes lors de son exploration de l'espace</p>
+
+
+            <p>En plus de différentes boucles ou fonctions déjà vu je voulais présenter deux partie du code : </p>
+            <p align="center"> <img src="./image/Boucle1.png"  width="50%" height="10%"> </p>
+            <p align="center"> <img src="./image/Boucle2.png"  width="50%" height="10%"> </p>
+            <p> Liens vers le fichier du code C : <a href="Nyancat.c"> NyanCat </a>  / <a href="Nyancat.txt"> NyanCat </a></p>
+        </div>
+    </div>
+
+    
+        </tbody>
+     <script src="script.js"></script>
+   </body>
+</html>

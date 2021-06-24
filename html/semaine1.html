@@ -2,7 +2,7 @@
 <html>
 
 <head>
-       <title>Semaine 1 : Planning</title>
+       <title>Semaine 1</title>
        <meta charset="utf-8">
        <link rel="stylesheet" href="style.css" >
 </head>
@@ -20,11 +20,12 @@
         <a href="#previs">Planning prévisionnel</a>
         <a href="#snake">Snake</a>
         <a href="#anim">Animation</a>
+        <a href="#jdlv">Jeux de la Vie</a>
         <a href="#nyancat">Chef d'Oeuvre NyanCat</a>
     </nav>
     
-
-    <table href="#tpsreel">
+    <section  >
+    <table id="tpsreel">
         <caption>Planning en temps réel</caption>
      
         <thead> <!-- En-tête du tableau -->
@@ -40,7 +41,7 @@
             <tr>
             </tr>
         </tfoot>
-     
+        
         <tbody> <!-- Corps du tableau -->
             <tr id="matin">
                 <td>14 juin - Matin</td>
@@ -567,10 +568,10 @@
                     <td>18 juin - Après midi</td>
                     <td class="partition">Partition</td>
                     <td class="partition">Partition</td>
-                    <td class="partition">Partition</td>
+                    <td class="partition" id="snake">Partition</td>
                 </tr>
             </tbody>
-        </table>
+        </table >
 
 
         <h1 align="center"> Snake </h1>
@@ -585,10 +586,10 @@
         <p>Boucle intéressante : </p>
         <p align="center"> <img src="./image/bouclezoom.png"  > </p>
                
-        <p> Liens vers le fichier du code C : <a href="animation_evan.c"> Animation C </a>  / <a href="animation_evan.txt"> Animation texte</a> </p>
+        <p> Liens vers le fichier du code C : <a href="snace.c"> Snake C </a>  / <a href="animation_evan.txt" id="anim"> Snake.txt</a> </p>
         <p><br></p>
         
-        <h1 align="center"> Animation </h1>
+        <h1 align="center" > Animation </h1>
         <p></p>
         
         <p></p>   
@@ -600,7 +601,7 @@
         <p>Boucle intéressante : </p>
         <p align="center"> <img src="./image/bouclezoom.png"  > </p>
         
-        <p> Liens vers le fichier du code C : <a href="animation_evan.c"> Animation C </a>  / <a href="animation_evan.txt"> Animation texte </a></p>
+        <p> Liens vers le fichier du code C : <a href="animation_evan.c"> Animation C </a>  / <a href="animation_evan.txt" id="jdlv"> Animation.txt</a></p>
         <p><br></p>
         <h1 align="center"> Jeux de la vie </h1>
         <p> Ce mini projet a été effectué en deux étapes : </p>
@@ -628,9 +629,9 @@
         <p>On a fait plusieurs fichiers pour séparer les étapes, on a donc fait un makefile pour compiler : </p> 
         <p align="center"> <img src="./image/JdlV_makefile.png"  width="50%" height="10%"> </p>
     
-        <p> Liens vers le fichier du code C : <a href="JdlV_main.c"> main.c </a>  / <a href="JdlV_main.txt"> main.txt </a></p>
+        <p> Liens vers le fichier du code C : <a href="JdlV_main.c"> main.c </a>  / <a id="nyancat" href="JdlV_main.txt"> main.txt </a></p>
         <p><br></p>
-        <h1 align="center"> Chef d'Oeuvre NyanCat </h1>
+        <h1 align="center" > Chef d'Oeuvre NyanCat </h1>
         <p><br></p>
         <p> Le prochain exercice était la gestion de l'écriture sur la fenetre : </p>
         <p> On va pour cela utiliser la librairie TTF puis on ouvre la font desiré </p>
@@ -651,6 +652,7 @@
         <p align="center"> <img src="./image/Boucle1.png"  width="50%" height="10%"> </p>
         <p align="center"> <img src="./image/Boucle2.png"  width="50%" height="10%"> </p>
         <p> Liens vers le fichier du code C : <a href="Nyancat.c"> NyanCat </a>  / <a href="Nyancat.txt"> NyanCat </a></p>
+    </section>
                
     
         </tbody>
