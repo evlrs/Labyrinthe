@@ -209,7 +209,7 @@ color: rgb(26, 26, 26);
 }
 
 .vertical-menu {
-    width: 240px; /* Set a width if you like */
+    width: 145px; /* Set a width if you like */
     position: -webkit-sticky;
     /* Safari */
     position: sticky;
