@@ -5,9 +5,9 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
-#define L 10
-#define H 10 
-#define D (190/L)
+#define L 150
+#define H 100
+#define D (900/L)
 #define NAR ((L-1)*H+(H-1)*L) //Nb aretes
 
 typedef struct Triple{

@@ -42,16 +42,8 @@ int main(){
         }
     }
     
-    printf("\n");
-    afficher_matrice(lab);
-    printf("\n");
-    afficher_matrice(dist);
     voisins(lab,dist,0,0,0);
-    printf("\n");
-    afficher_matrice(lab);
-    printf("\n");
-    afficher_matrice(dist);
-    printf("\n");
+
     
     /* SDL */
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -84,11 +76,17 @@ int main(){
     SDL_GetWindowSize(win, &window_dimensions.w, &window_dimensions.h);
     SDL_QueryTexture(my_texture, NULL, NULL, &source.w, &source.h);
     //SDL_Rect rect;
-    SDL_BlendMode blendMode;
+    //SDL_BlendMode blendMode;
  
 
     int n=0;
     int color=0;
+    int maxDist=0;
+    for(int i=0;i<H;++i){
+        for(int j=0;j<L;++j){
+            if(dist[i][j]>maxDist)  maxDist=dist[i][j];
+        }
+    }
     int offset_x = source.w/4, offset_y = source.h/4; 
     int zoom=1;
     state.w = offset_x; 
@@ -99,8 +97,8 @@ int main(){
     destination.y = 0;
     state.x = 0;
     state.y = 0;
-    rect.w = offset_x;
-    rect.h = offset_y;
+    rect.w = destination.w;
+    rect.h = destination.h;
   
 
     SDL_bool program_on = SDL_TRUE;
@@ -139,13 +137,12 @@ int main(){
             state.x = offset_x*(numero_sprite(n)%4);
             state.y = offset_y*(numero_sprite(n)/4);
             SDL_RenderCopy(renderer, my_texture, &state, &destination); 
-            color=255*dist[k/L][k%L]/50;
-            //printf("%d ",color);
-            rect.x = state.x;
-            rect.y = state.y;
+            color=240*dist[k/L][k%L]/maxDist;
+            rect.x = destination.x;
+            rect.y = destination.y;
 
-            SDL_SetRenderDrawBlendMode(renderer,100);
-            SDL_SetRenderDrawColor(renderer, 255-color, 0, color, 255);
+            SDL_SetRenderDrawBlendMode(renderer,SDL_BLENDMODE_BLEND);
+            SDL_SetRenderDrawColor(renderer, 127, 127, 127,color);
             SDL_RenderFillRect(renderer, &rect );
             
         
