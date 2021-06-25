@@ -39,9 +39,9 @@ int main(){
     changerValeur(tas,3,21);
     taille = supprimer(tas,taille,5);
     afficherListe(tas,taille);
-
-    graphviz( fic, tas, taille);
     */
+    graphviz( fic, tas, taille);
+    
     trieTas(tas,liste,taille);
     return 0;
 }
