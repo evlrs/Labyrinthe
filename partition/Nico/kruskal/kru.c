@@ -1,6 +1,6 @@
 #include "kru.h"
 
-
+/*gcc kru.c -o kru -Wall -Wextra -g -lSDL2 -lSDL2_image*/
 
 int main(){
     srand(time(NULL));
@@ -33,6 +33,25 @@ int main(){
 
     nombre_murs(chemin,lab);
     //afficher_matrice(lab);
+
+    
+    int dist[H][L];
+    for(int i=0;i<H;++i){
+        for(int j=0;j<L;++j){
+            dist[i][j]=-1;
+        }
+    }
+    
+    printf("\n");
+    afficher_matrice(lab);
+    printf("\n");
+    afficher_matrice(dist);
+    voisins(lab,dist,0,0,0);
+    printf("\n");
+    afficher_matrice(lab);
+    printf("\n");
+    afficher_matrice(dist);
+    printf("\n");
     
     /* SDL */
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -61,13 +80,15 @@ int main(){
     SDL_Texture *my_texture = NULL; 
     my_texture = IMG_LoadTexture(renderer,"./mur.png");
 
-    SDL_Rect source = {0}, window_dimensions = {0}, destination = {0}, state = {0}; 
+    SDL_Rect rect, source = {0}, window_dimensions = {0}, destination = {0}, state = {0}; 
     SDL_GetWindowSize(win, &window_dimensions.w, &window_dimensions.h);
     SDL_QueryTexture(my_texture, NULL, NULL, &source.w, &source.h);
-
+    //SDL_Rect rect;
+    SDL_BlendMode blendMode;
  
 
     int n=0;
+    int color=0;
     int offset_x = source.w/4, offset_y = source.h/4; 
     int zoom=1;
     state.w = offset_x; 
@@ -78,6 +99,8 @@ int main(){
     destination.y = 0;
     state.x = 0;
     state.y = 0;
+    rect.w = offset_x;
+    rect.h = offset_y;
   
 
     SDL_bool program_on = SDL_TRUE;
@@ -116,6 +139,15 @@ int main(){
             state.x = offset_x*(numero_sprite(n)%4);
             state.y = offset_y*(numero_sprite(n)/4);
             SDL_RenderCopy(renderer, my_texture, &state, &destination); 
+            color=255*dist[k/L][k%L]/50;
+            //printf("%d ",color);
+            rect.x = state.x;
+            rect.y = state.y;
+
+            SDL_SetRenderDrawBlendMode(renderer,100);
+            SDL_SetRenderDrawColor(renderer, 255-color, 0, color, 255);
+            SDL_RenderFillRect(renderer, &rect );
+            
         
         }
 
@@ -381,3 +413,88 @@ void afficher_matrice(int lab[H][L]){
         printf("\n");
     }
 }
+
+
+/* Retourne les voisins (là où il n'y a pas de mur) */
+void voisins(int lab[H][L], int dist[H][L], int i, int j, int p){
+    int murs=lab[i][j];
+    int h=0,d=0,b=0,g=0; //haut droit bas gauche
+    
+    if(dist[i][j]==-1){
+        murs=15-murs;
+        switch(murs){
+            case 0:
+                break;
+            case 1:
+                h=1;
+                break;
+            case 2:
+                d=1;
+                break;
+            case 3:
+                h=1;
+                d=1;
+                break;
+            case 4:
+                b=1;
+                break;
+            case 5:
+                h=1;
+                b=1;
+                break;
+            case 6:
+                d=1;
+                b=1;
+                break;
+            case 7:
+                h=1;
+                d=1;
+                b=1;
+                break;
+            case 8:
+                g=1;
+                break;
+            case 9:
+                h=1;
+                g=1;
+                break;
+            case 10:
+                d=1;
+                g=1;
+                break;
+            case 11:
+                h=1;
+                d=1;
+                g=1;
+                break;
+            case 12:
+                g=1;
+                b=1;
+                break;
+            case 13:
+                h=1;
+                g=1;
+                b=1;
+                break;
+            case 14:
+                g=1;
+                b=1;
+                d=1;
+                break;
+            case 15:
+                h=1;
+                b=1;
+                d=1;
+                g=1;
+                break;
+        }
+        dist[i][j]=p;
+        ++p;
+        if(h==1)    voisins(lab,dist,i-1,j,p);
+        if(d==1)    voisins(lab,dist,i,j+1,p);
+        if(b==1)    voisins(lab,dist,i+1,j,p);
+        if(g==1)    voisins(lab,dist,i,j-1,p);
+    }
+
+}
+

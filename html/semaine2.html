@@ -24,9 +24,7 @@
             <a href="#chef_doeuvre">Chef d'oeuvre</a>
             <a href="#binaire">Tas binaire</a>
             <a href="#partition">Partition</a>
-            <a href="#anim">Animation</a>
-            <a href="#jdlv">Jeux de la vie</a>
-            <a href="#nyancat">Chef d'Oeuvre NyanCat</a>
+            <a href="#laby">Labyrinthe</a>
         </div>
 
         <div style="right:0;">
@@ -60,55 +58,101 @@
             <p></p>
             <p align="center"> <img src="./image/Heap1.png" style="width: 42%;" > </p>
 
-            <p><a href="binaire.html" id="partition"> Tas binaire C </a></p>
+            <p><a href="binaire.html" id="partition"> Tas binaire </a></p>
             <p><br></p>
             <h1 align="center"> Partition</h1>
             <p></p>   
-            <p align="center"> <img src="./image/JdlV_regles.png"  width="50%" height="10%"> </p>
+            <p align="center"> <img src="./image/partition1.png"  width="50%" height="10%"> </p>
+            <p></p>   
 
-            <p> Une fois les règles crées, il faut que le jeu apparaisse à l'écran.</p>
-            <p align="center"> <img src="./image/JdlV_jeu.png"  width="50%" height="10%"> </p>
-        
-            <p>La deuxième partie est arrivée après quelques exercices.</p>
+            <p align="center"> <img src="./image/graph_part2.jpg"  width="75%" height="40%"> </p>
+            <h4>Représentation avec une Matrice adjacente : </h4>
+
+            <p align="center"> <img src="./image/matadj.png"  width="28%" height="8%"> </p>
+            <p align="center"> <img src="./image/graphmatadj.png"  width="25%" height="8%"> </p>
+
+            <p><a href="partition.html" > Partition Matrice adjacente </a></p>
+            <p></p>   
+            <p></p>   
+            <h4>Représentation avec une liste d'arêtes : </h4>
+            <pre><code class="language-c">void Init_Aret(Elem *tab, int m)
+                {
+                   int i, j;
+                   int b = 0;
+                
+                   for (i = 0; i < m; i++)
+                   {
+                      for (j = 0; j < i; j++)
+                      {
+                         if (rand() / (float)__INT_MAX__ < 0.09)
+                         {
+                            tab[b].str = i;
+                            tab[b].fin = j;
+                            tab[b].val = 1;
+                            b++;
+                         }
+                      }
+                   }
+                }</code></pre>
+
+                <p> Ce qui donne avec graphviz : </p>
+                <p align="center"> <img src="./image/graph_list.jpg"  width="50%" height="10%"> </p>
+          
+                <p> Pour la suit on utilise les partions sur chaque case de la liste, on fusion simplement les partions des differents noeuds:</p>
+          
+                <p align="center"> <img src="./image/graph_part.jpg"  width="50%" height="10%"> </p>
+          
+          
+          
+                   
+          
+            <h1 align="center" > Labyrinthe </h1>
+            <p align="center"> <img src="./image/labyrinthe.png"  width="39%" height="10%"> </p>
+
+            <h3 align="center"> Partie théorique Labyrinthe </h3>
+            <p> Création de toutes les arêtes entre les noeuds : </p>
+
+            <p align="center"> <img src="./image/1.jpg"  width="50%" height="10%"> </p>
+
+            <p> Les arêtes sont des triplets rangées dans un liste : </p>
+            <p align="center"> <img src="./image/2.jpg"  width="50%" height="10%"> </p>
+            
+
+            <p>Ensuite il faut mélanger les arêtes :</p>
+            <p>  Pseudo code :</p>
+            <p style="color: #3b8cf5;">&nbsp;&nbsp;&nbsp;Pour i de 0 à 20</p>
+            <p style="color: #3b8cf5;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echange_triplet(i,i+rand()%21</p>
+            <p style="color: #3b8cf5;">&nbsp;&nbsp;&nbsp;Fin</p>
+            <p align="center"> <img src="./image/3.jpg"  width="50%" height="10%"> </p>
+            <p align="center"> <img src="./image/4.jpg"  width="50%" height="10%"> </p>
+            <p align="center"> <img src="./image/5.jpg"  width="50%" height="10%"> </p>
+
+            <p>Avec l'algorithme des partitions, on selectionne certaines arêtes.</p>
+            <p>On selectione l'arête seulement si le noeud de depart et celui d'arrivé sont dans deux partitions différentes.</p>
+            <p>Dans ce cas on fusionne les deux partitions.</p>
+            <p>Celles-ci formeront le chemin du labyrinthe.</p>
             <p><br></p>
-            <p>On a la possibilité d'avoir une personne qui peut intéragir avec le jeu : </p> 
-            <p align="center"> <img src="./image/JdlV_interactions.png"  width="50%" height="10%"> </p>
-            <p>Possibilités :</p>
-            <p style="font-size: 22px;">- Fermer le jeu avec la X.</p>
-            <p style="font-size: 22px;">- Quitter le jeu avec 'echap' ou Q</p>
-            <p style="font-size: 22px;">- Mettre le jeu en pause avec 'espace' ou P</p>
-            <p style="font-size: 22px;">- Redémarer le jeu avec 'entrée'</p>
-            <p style="font-size: 22px;">- Cliquer pour mettre un pixel en plus (ou en moins)</p>
-
-            <p><br></p>
-
-        
-            <p>On a fait plusieurs fichiers pour séparer les étapes, on a donc fait un makefile pour compiler : </p> 
-            <p align="center"> <img src="./image/JdlV_makefile.png"  width="50%" height="10%"> </p>
-        
-            <p> Liens vers le fichier du code C : <a href="JdlV_main.c"> main.c </a>  / <a id="nyancat" href="JdlV_main.txt"> main.txt </a></p>
-            <p><br></p>
-            <h1 align="center" > Chef d'Oeuvre NyanCat </h1>
-            <p><br></p>
-            <p> Le prochain exercice était la gestion de l'écriture sur la fenetre : </p>
-            <p> On va pour cela utiliser la librairie TTF puis on ouvre la font desiré </p>
-            <p align="center"> <img src="./image/Init_ttf.png"  width="50%" height="10%"> </p>
-            <p> une fois la font initialiser on peut l'utiliser pour afficher un message</p>
-            <p align="center"> <img src="./image/Boucle3.png"  width="50%" height="10%"> </p>
-            <p> Suite aux quelques exercices qui ont été présentés par mes camadares on a commencé à realiser un premier chef d'oeuvre : </p>
-            <p> L'idée est partie d'une envie de refaire un meme de l'internet, le NYAN CAT :  </p>  
-            <p align="center"> <video src="video/nyan-cat-original.mp4" autoplay  width="50%" height="10%" controls poster="vignette.jpg">
-                  Cette vidéo ne peut être affichée sur votre navigateur Internet.<br>
-                  Une version est disponible en téléchargement sous <a href="./video/nyan-cat-original.mp4">adresse du lien </a> . 
-                </video>
-            </p>
-            <p style="line-height: 190%;"> Une fois l'animation créée lors de l'exrcice sur les animations, on s'est dit que l'on aller se reservir de cette animation pour créer notre chef d'oeuvre.</br>Le but est d'aider le petit chat à éviter les planètes lors de son exploration de l'espace</p>
+            <p>Pseudo code :</p>
+            <p  style="color: #3b8cf5;">&nbsp;&nbsp;&nbsp;Pour i de 0 à 21</p>
+            <p style="color: #3b8cf5;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Si partition[nd_d] != partition[nd_a]</p>
+            <p style="color: #3b8cf5;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ajout(arête[i])</p>
+            <p style="color: #3b8cf5;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fusion(partition[nd_d],partition[nd_a]</p>
+            <p style="color: #3b8cf5;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FinSi</p>
+            <p style="color: #3b8cf5;">&nbsp;&nbsp;&nbsp;Fin</p>
 
 
-            <p>En plus de différentes boucles ou fonctions déjà vu je voulais présenter deux partie du code : </p>
-            <p align="center"> <img src="./image/Boucle1.png"  width="50%" height="10%"> </p>
-            <p align="center"> <img src="./image/Boucle2.png"  width="50%" height="10%"> </p>
-            <p> Liens vers le fichier du code C : <a href="Nyancat.c"> NyanCat </a>  / <a href="Nyancat.txt"> NyanCat </a></p>
+            <p align="center"> <img src="./image/6.jpg"  width="50%" height="10%"> </p>
+
+           
+            <p> Liens vers le fichier du code C : <a href="kruskal.html">Algorithme Kruskal </a></p>
+
+            <p> Pour la suite on recupère une grille génèrée avec l'algorithme de Kruskal, elle contient des nombres entre 0 et 15. </p>
+    
+             <p> Pour faire un affichage en SDL on a cree un Asset de mur : </p>
+            <p align="center"> <img src="./image/mur2.png"  width="35%" height="9%"> </p>
+    
+            <p> une fois cet Asset cree on c'est rendu compte d'un probleme : </p>
+            <p align="center"> <img src="./image/mur3.png"  width="35%" height="9%"> </p>
         </div>
     </div>
 

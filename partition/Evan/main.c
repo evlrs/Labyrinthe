@@ -12,9 +12,9 @@ int main(){
     
     retour=fusion(liste,taille,0,1);
     graphviz(fic,liste,taille);
-    retour=fusion(liste,taille,2,3);
+    retour=fusion(liste,taille,3,2);
     graphviz(fic,liste,taille);
-    retour=fusion(liste,taille,10,3);
+    retour=fusion(liste,taille,5,6);
     graphviz(fic,liste,taille);
     /*retour=fusion(liste,taille,5,9);
     graphviz(fic,liste,taille);

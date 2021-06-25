@@ -63,8 +63,8 @@ void graph_part(int Parti[], int taille)
       system("dot -Tjpg graph_part.dot -o graph_part.jpg");
    }
 }
-/*
-int main()
+
+/*int main()
 {
    int taille = 11;
    int Parti[taille];
@@ -84,6 +84,6 @@ int main()
   // Fusion(Parti, Level, 0, 7);
    Aff_Partition(Parti, taille);
    Aff_Partition(Level, taille);
-   graphviz(Parti, taille);
+   graph_part(Parti, taille);
    return 0;
 }*/

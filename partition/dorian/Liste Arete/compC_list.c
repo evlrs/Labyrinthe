@@ -10,7 +10,7 @@ void Init_Aret(Elem *tab, int m)
    {
       for (j = 0; j < i; j++)
       {
-         if (rand() / (float)__INT_MAX__ < 0.1)
+         if (rand() / (float)__INT_MAX__ < 0.09)
          {
             tab[b].str = i;
             tab[b].fin = j;
@@ -26,7 +26,7 @@ void aff_liste(Elem *list)
    int i = 0;
    while (list[i].str != 0)
    {
-      printf("%d %d %d|", list[i].str, list[i].fin, list[i].val);
+      printf("%d %d %d", list[i].str, list[i].fin, list[i].val);
       i++;
       printf("\n");
    }

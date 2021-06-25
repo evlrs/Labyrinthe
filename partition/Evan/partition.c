@@ -2,9 +2,6 @@
 
 
 
-
-
-
 /* Affiche la liste du tas */
 void afficherListe(int liste[], int taille){
     for(int i=0;i<taille;++i){
@@ -127,10 +124,10 @@ void graphviz(FILE * fic, int tas[], int taille){
     fic=fopen("graph_partition_evan.dot","w");
     if(fic!=NULL){
         
-        fputs("digraph {\n",fic);
+        fputs("graph {\n",fic);
 
         for(int i=0;i<taille;++i){
-            fprintf(fic,"    %d->%d;\n",tas[i],i);
+            fprintf(fic,"    %d--%d;\n",tas[i],i);
         }
         fputs("}\n",fic);
         fclose(fic);  
