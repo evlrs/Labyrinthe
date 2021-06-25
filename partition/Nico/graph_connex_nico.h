@@ -8,7 +8,7 @@
 
 
 #define N 10        //nombre de noeuds potentiels
-#define NOEUDS 8   //nombre de noeuds actifs
+#define NOEUDS 25   //nombre de noeuds actifs
 
 int mat[N][N];
 

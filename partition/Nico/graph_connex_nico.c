@@ -45,7 +45,6 @@ void random1(){
     }
 }
 
-
 /* Crée et afficher le graph connex */
 void graphviz_gconnex(FILE* fic){
     fic=fopen("graph_connex_nico.dot","w");

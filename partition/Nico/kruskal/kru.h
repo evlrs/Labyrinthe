@@ -5,9 +5,9 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
-#define L 50
-#define H 20 
-#define D (1900/L)
+#define L 10
+#define H 10 
+#define D (190/L)
 #define NAR ((L-1)*H+(H-1)*L) //Nb aretes
 
 typedef struct Triple{
@@ -30,3 +30,4 @@ void melanger_aretes(triple* aretes);
 int numero_sprite(int murs);
 void nombre_murs(triple* chemin, int lab[H][L]);
 void afficher_matrice(int lab[H][L]);
+void voisins(int lab[H][L], int dist[H][L], int i, int j, int p);
