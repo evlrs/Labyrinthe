@@ -35,6 +35,19 @@ void Gene_matrice(int lab[LIGNE][COLONE])
     free(chemin);
 }
 
+int Init_Dist(int lab[LIGNE][COLONE],int dist[LIGNE][COLONE])
+{
+    int max=0;
+    for(int i=0;i<LIGNE;++i){
+        for(int j=0;j<COLONE;++j){
+            dist[i][j]=-1;
+        }
+    }
+
+    max = voisins(lab,dist,0,0,0);
+    return max;
+}
+
 /* Crée toutes les arretes possible */
 int init_aretes(triple *aretes)
 {
@@ -173,4 +186,113 @@ void afficher_matrice(int lab[LIGNE][COLONE])
         }
         printf("\n");
     }
+}
+
+/* Retourne les voisins (là où il n'y a pas de mur) */
+int voisins(int lab[LIGNE][COLONE], int dist[LIGNE][COLONE], int i, int j, int p){
+    int murs=lab[i][j];
+    int h=0,d=0,b=0,g=0; //haut droit bas gauche
+    int max=p;
+
+    if(dist[i][j]==-1){
+        murs=15-murs;
+        switch(murs){
+            case 0:
+                break;
+            case 1:
+                h=1;
+                break;
+            case 2:
+                d=1;
+                break;
+            case 3:
+                h=1;
+                d=1;
+                break;
+            case 4:
+                b=1;
+                break;
+            case 5:
+                h=1;
+                b=1;
+                break;
+            case 6:
+                d=1;
+                b=1;
+                break;
+            case 7:
+                h=1;
+                d=1;
+                b=1;
+                break;
+            case 8:
+                g=1;
+                break;
+            case 9:
+                h=1;
+                g=1;
+                break;
+            case 10:
+                d=1;
+                g=1;
+                break;
+            case 11:
+                h=1;
+                d=1;
+                g=1;
+                break;
+            case 12:
+                g=1;
+                b=1;
+                break;
+            case 13:
+                h=1;
+                g=1;
+                b=1;
+                break;
+            case 14:
+                g=1;
+                b=1;
+                d=1;
+                break;
+            case 15:
+                h=1;
+                b=1;
+                d=1;
+                g=1;
+                break;
+        }
+        dist[i][j]=p;
+        ++p;
+        max=p;
+
+        if(h==1)
+        {
+            int tmp = voisins(lab,dist,i-1,j,p);
+            if (tmp>max)
+                max=tmp;
+
+        }    
+        if(d==1)    
+        {
+            int tmp = voisins(lab,dist,i,j+1,p);
+            if (tmp>max)
+                max=tmp;
+        }
+        if(b==1)
+        {
+            int tmp = voisins(lab,dist,i+1,j,p);
+            if (tmp>max)
+                max=tmp;
+        }
+        if(g==1)
+        {    
+            int tmp = voisins(lab,dist,i,j-1,p);
+            if (tmp>max)
+                max=tmp;
+        }
+        
+
+    }
+    return max;
 }

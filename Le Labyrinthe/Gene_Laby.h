@@ -25,3 +25,7 @@ void creer(triple *aretes, int liste[], int taille);
 void nombre_murs(triple *chemin, int lab[LIGNE][COLONE]);
 
 void afficher_matrice(int lab[LIGNE][COLONE]);
+
+int Init_Dist(int lab[LIGNE][COLONE],int dist[LIGNE][COLONE]);
+
+int voisins(int lab[LIGNE][COLONE], int dist[LIGNE][COLONE], int i, int j, int p);
