@@ -5,6 +5,9 @@ int main()
 {
    int Grille[LIGNE][COLONE];
    Gene_matrice(Grille);
+
+   
+
    Init_Window("V0 : Labyrinthe", LARGEUR, HAUTEUR);
 
    SDL_Texture *Mur = NULL;
