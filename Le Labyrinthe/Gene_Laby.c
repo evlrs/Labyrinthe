@@ -67,15 +67,16 @@ int init_aretes(triple *aretes)
 /* Mélange les aretes */
 void melanger_aretes(triple *aretes)
 {
-    int x = 0;
+    //int x = 0;
     int k = 0;
+    triple tmp = {0};
     for (int i = 0; i < (NAR - 1); ++i)
     {
         k = i + rand() % (NAR - i);
 
-        x = aretes[i].val;
-        aretes[i].val = aretes[k].val;
-        aretes[k].val = x;
+        tmp = aretes[i];
+        aretes[i] = aretes[k];
+        aretes[k] = tmp;
     }
 }
 
@@ -83,15 +84,15 @@ void melanger_aretes(triple *aretes)
 void calcul_composantes(triple *aretes, triple *chemin, int liste[])
 {
     int nbChe = 0;
-    int d = 0, a = 0, v = 0, j = 0;
+    int d = 0, a = 0, v = 0;
 
-    for (int i = 0; i < NAR; ++i)
+    for (int j = 0; j < NAR; ++j)
     {
-        j = 0;
+        /*j = 0;
         while (aretes[j].val != i)
         {
             ++j;
-        }
+        }*/
         d = aretes[j].depart;
         a = aretes[j].arrivee;
         v = aretes[j].val;
