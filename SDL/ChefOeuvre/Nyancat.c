@@ -167,6 +167,7 @@ void Aff_Score(TTF_Font *Txt, SDL_Color color, SDL_Rect *pos, char *score_t, int
         pos->x += pos->w;
     }
 }
+
 /*--------------------------------------------------------------------------*/
 /*        Code utile                                                        */
 /* printf("x:%d y:%d w:%d h:%d\n",pos.x,pos.y,pos.w,pos.h);                 */
@@ -328,8 +329,7 @@ int main()
                 etat_cat.x += catset_x;
                 etat_cat.x %= source_cat.w;
                 SDL_RenderCopy(renderer, CAT, &etat_cat, &dest_cat);
-                
-                
+
                 etat_plan.x += planset_x;
                 etat_plan.x %= source_plan.w;
 
@@ -344,24 +344,24 @@ int main()
                         dest_plan[i].y = rand() % (window_dim.h - dest_plan[i].h);
                         dest_plan[i].y += pos.h;
 
-                       /* if (i == 0)
-                        {*/
-                            vit_plan -= 0.2;
-                            /*Score++;
+                        if (i == 0)
+                        {
+                            vit_plan -= 0.5;
+                            Score++;
                             score_t[nscore_t - 2] = Score / 10 + '0';
-                            score_t[nscore_t - 1] = Score % 10 + '0';*/
-                        //}
+                            score_t[nscore_t - 1] = Score % 10 + '0';
+                        }
 
-                        if (vit_plan <= 0.2)
+                        if (vit_plan <= 0.5)
                         {
                             vit_plan = 10;
                             Level++;
                             level_t[nlevel_t - 1] = Level % 10 + '0';
                         }
 
-                        Score++;
+                       /* Score++;
                         score_t[nscore_t - 2] = Score / 10 + '0';
-                        score_t[nscore_t - 1] = Score % 10 + '0';
+                        score_t[nscore_t - 1] = Score % 10 + '0';*/
                     }
                     else
                     {
