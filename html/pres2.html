@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+   <head>
+       <title>Projet labyrinthe : Jeux de la vie</title>
+       <meta charset="utf-8">
+       <link rel="stylesheet" href="style.css" >
+   </head>
+
+   <body>
+      <h1 align="center"> Partie théorique Labyrinthe </h1>
+      <p> Création de toutes les arêtes entre les noeuds : </p>
+  
+      <p align="center"> <img src="./image/1.jpg"  width="50%" height="10%"> </p>
+    
+      <p> Les arêtes sont des triplets rangées dans un liste : </p>
+      <p align="center"> <img src="./image/2.jpg"  width="50%" height="10%"> </p>
+
+      <p>Ensuite il faut mélanger les arêtes :</p>
+      <p>  Pseudo code :</p>
+      <p>&nbsp;&nbsp;&nbsp;Pour i de 0 à 20</p>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echange_triplet(i,i+rand()%21</p>
+      <p>&nbsp;&nbsp;&nbsp;Fin</p>
+      <p align="center"> <img src="./image/3.jpg"  width="50%" height="10%"> </p>
+      <p align="center"> <img src="./image/4.jpg"  width="50%" height="10%"> </p>
+      <p align="center"> <img src="./image/5.jpg"  width="50%" height="10%"> </p>
+      
+      <p>Avec l'algorithme des partitions, on selectionne certaines arêtes.</p>
+      <p>On selectione l'arête seulement si le noeud de depart et celui d'arrivé sont dans deux partitions différentes.</p>
+      <p>Dans ce cas on fusionne les deux partition.</p>
+      <p>Celles-ci formeront le chemin du labyrinthe.</p>
+      <p>Pseudo code :</p>
+      <p>&nbsp;&nbsp;&nbsp;Pour i de 0 à 21</p>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Si partition[nd_d] != partition[nd_a]</p>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ajout(arête[i])</p>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fusion(partition[nd_d],partition[nd_a]</p>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FinSi</p>
+      <p>&nbsp;&nbsp;&nbsp;Fin</p>
+
+
+      <p align="center"> <img src="./image/6.jpg"  width="50%" height="10%"> </p>
+
+    </body>
+</html>
