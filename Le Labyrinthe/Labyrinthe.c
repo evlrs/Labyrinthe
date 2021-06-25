@@ -7,10 +7,15 @@ int main()
    Gene_matrice(Grille);
    Init_Window("V0 : Labyrinthe", LARGEUR, HAUTEUR);
 
+   int Dist[LIGNE][COLONE];
+   Init_Tab(Dist);
+   affi_Tex(Grille);
+
    SDL_Texture *Mur = NULL;
    Mur = Init_Texture("mur3.png");
 
    int running = 1;
+   int delay = 1000;
 
    SDL_Event event;
 
@@ -39,6 +44,7 @@ int main()
          switch (event.type)
          {
          case SDL_QUIT:
+            delay=1;
             running = 0;
             break;
 
@@ -53,11 +59,15 @@ int main()
          }
       }
 
+      affi_Parc(Dist,&window_dim);
+
+      affi_Mur(Grille, Mur, etat_mur, &dest_mur);
       SDL_Delay(1); //  delai minimal
 
-      affi_Gra(Grille, Mur, etat_mur, &dest_mur);
+      affi_Parc(Dist,&window_dim);
+
       SDL_RenderPresent(renderer);
-      SDL_Delay(100);
+      SDL_Delay(delay);
    }
 
    SDL_DestroyRenderer(renderer);
@@ -67,6 +77,18 @@ int main()
    SDL_Quit();
 
    return (0);
+}
+
+void Init_Tab(int tab[LIGNE][COLONE])
+{
+   int j, i;
+   srand(time(NULL));
+
+   for (i = 0; i < LIGNE; ++i)
+   {
+      for (j = 0; j < COLONE; ++j)
+         tab[i][j] = rand()%(D_MAX);
+   }
 }
 
 int Init_Window(char *titre, int larg, int longr)
@@ -141,11 +163,11 @@ void Init_Rect_Mur(SDL_Rect *etat, SDL_Rect *source)
    }
 }
 
-void affi_Gra(int tab[LIGNE][COLONE], SDL_Texture *Mur, SDL_Rect *source, SDL_Rect *dest)
+void affi_Mur(int tab[LIGNE][COLONE], SDL_Texture *Mur, SDL_Rect *source, SDL_Rect *dest)
 {
    int i, j;
    int val = 20;
-   SDL_RenderClear(renderer);
+  // SDL_RenderClear(renderer);
 
    for (i = 0; i < LIGNE; ++i)
    {
@@ -156,5 +178,49 @@ void affi_Gra(int tab[LIGNE][COLONE], SDL_Texture *Mur, SDL_Rect *source, SDL_Re
          dest->y = i * dest->h;
          SDL_RenderCopy(renderer, Mur, &source[val], dest);
       }
+   }
+}
+
+void affi_Parc(int tab[LIGNE][COLONE], SDL_Rect *window_dim)
+{
+   SDL_Rect colo={0};
+
+   colo.w = window_dim->w / COLONE;
+   colo.h = window_dim->h / LIGNE;
+   colo.x = 0;
+   colo.y = 0;
+   
+   int B;
+   int R;
+   int val;
+   for (int i = 0; i < LIGNE; ++i)
+   {
+      for (int j = 0; j < COLONE; ++j)
+      {
+          val = tab[i][j];
+          R = 255-(val*(254/D_MAX));
+          B = (val*(254/D_MAX));
+         SDL_SetRenderDrawColor(renderer,R,0,B,80);
+         SDL_SetRenderDrawBlendMode(renderer,SDL_BLENDMODE_BLEND);
+         colo.x = j * colo.w;
+         colo.y = i * colo.h;
+         
+         SDL_RenderDrawRect(renderer,&colo);
+         SDL_RenderFillRect(renderer,&colo);
+      }
+   }
+}
+
+void affi_Tex(int tab[LIGNE][COLONE])
+{
+   int i, j;
+   for (i = 0; i < LIGNE; ++i)
+   {
+      printf("|");
+      for (j = 0; j < COLONE; ++j)
+         printf(" %d ", tab[i][j]);
+
+      printf("|");
+      printf("\n");
    }
 }

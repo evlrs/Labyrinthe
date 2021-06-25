@@ -88,11 +88,6 @@ void calcul_composantes(triple *aretes, triple *chemin, int liste[])
 
     for (int j = 0; j < NAR; ++j)
     {
-        /*j = 0;
-        while (aretes[j].val != i)
-        {
-            ++j;
-        }*/
         d = aretes[j].depart;
         a = aretes[j].arrivee;
         v = aretes[j].val;
